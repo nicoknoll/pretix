@@ -35,13 +35,6 @@ RUN pip3 install -e ".[dev]" gunicorn
 # Change to src directory as per documentation
 WORKDIR /app/src
 
-# compress assets
-RUN python manage.py compress --force
-
-# Collect static files
-RUN python manage.py collectstatic --noinput --no-post-process
-
-
 # Run database migrations
 RUN python manage.py migrate
 
@@ -50,6 +43,12 @@ RUN make npminstall
 
 # Compile language files
 RUN make localecompile
+
+# compress assets
+RUN python manage.py compress --force
+
+# Collect static files
+RUN python manage.py collectstatic --noinput --no-post-process
 
 # Set work directory
 WORKDIR /app
