@@ -1,49 +1,63 @@
-# Use an official Python runtime as a parent image
+# Use an official Python 3.9 runtime as a parent image
 FROM python:3.9
 
 # Set environment variables
 ENV PYTHONUNBUFFERED 1
 ENV DJANGO_SETTINGS_MODULE pretix.settings
-ENV POETRY_VERSION=1.4.2
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    python3-dev \
+    python3-venv \
+    libffi-dev \
+    libssl-dev \
+    libxml2-dev \
+    libxslt1-dev \
+    libenchant-2-2 \
+    gettext \
+    git
+
+# Install Node.js 17.x
+RUN curl -sL https://deb.nodesource.com/setup_17.x | bash - \
+    && apt-get install -y nodejs
 
 # Set work directory
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y \
-    gcc \
-    gettext \
-    git \
-    libffi-dev \
-    libjpeg-dev \
-    libpq-dev \
-    libssl-dev \
-    libxml2-dev \
-    libxslt1-dev \
-    python3-dev \
-    zlib1g-dev
-
-# Install Poetry
-RUN pip install "poetry==$POETRY_VERSION"
-
-# Copy only pyproject.toml and poetry.lock (if it exists)
-COPY pyproject.toml poetry.lock* /app/
-
-# Install project dependencies
-RUN poetry config virtualenvs.create false \
-  && poetry install --no-interaction --no-ansi
-
-# Copy the current directory contents into the container at /app
+# Copy the current directory contents into the container
 COPY . /app/
 
-# Run database migrations
-RUN python manage.py migrate
+# Create and activate virtual environment
+RUN python3 -m venv env
+ENV PATH="/app/env/bin:$PATH"
+
+# Upgrade pip and setuptools
+RUN pip3 install -U pip setuptools
+
+# Install Python dependencies
+RUN pip3 install -e ".[dev]"
+
+# Install Gunicorn
+RUN pip3 install gunicorn
+
+# Install npm dependencies
+RUN cd src/ && npm install
 
 # Collect static files
-RUN python manage.py collectstatic --noinput
+RUN cd src/ && python manage.py collectstatic --noinput
 
-# Make port 8000 available to the world outside this container
+# Compile language files
+RUN cd src/ && make localecompile
+
+# Run database migrations
+RUN cd src/ && python manage.py migrate
+
+# Expose port 8000 for Gunicorn
 EXPOSE 8000
 
-# Run the application
-CMD ["gunicorn", "pretix.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Set the working directory to /app/src where manage.py is located
+WORKDIR /app/src
+
+# Start Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "pretix.wsgi:application"]
