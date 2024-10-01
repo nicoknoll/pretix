@@ -29,6 +29,7 @@ RUN apt-get update && \
     mkdir /etc/pretix && \
     mkdir /data && \
     useradd -ms /bin/bash -d /pretix -u 15371 pretixuser && \
+    echo 'pretixuser ALL=(ALL) NOPASSWD:SETENV: /usr/bin/supervisord' >> /etc/sudoers && \
     mkdir /static && \
     mkdir /etc/supervisord
 ENV LC_ALL=C.UTF-8 \
@@ -41,7 +42,7 @@ COPY deployment/docker/nginx.conf /etc/nginx/nginx.conf
 COPY deployment/docker/nginx-max-body-size.conf /etc/nginx/conf.d/nginx-max-body-size.conf
 COPY deployment/docker/production_settings.py /pretix/src/production_settings.py
 COPY pyproject.toml /pretix/pyproject.toml
-COPY *build /pretix/*build
+COPY build /pretix/build
 COPY src /pretix/src
 RUN pip3 install -U \
         pip \
@@ -61,7 +62,7 @@ RUN chmod +x /usr/local/bin/pretix && \
     su pretixuser -c "cd /pretix/src && make production"
 
 USER pretixuser
-
-EXPOSE 8000
-
-CMD ["gunicorn", "pretix.wsgi", "--bind", "0.0.0.0:8000"]
+# VOLUME ["/etc/pretix", "/data"]
+EXPOSE 80
+ENTRYPOINT ["pretix"]
+CMD ["all"]
