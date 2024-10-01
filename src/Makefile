@@ -10,10 +10,10 @@ localegen:
 	./manage.py makemessages --keep-pot -d djangojs --ignore "pretix/static/npm_dir/*" --ignore "pretix/helpers/*" --ignore "pretix/static/jsi18n/*" --ignore "pretix/static/jsi18n/*" --ignore "pretix/static.dist/*" --ignore "data/*" --ignore "pretix/static/rrule/*" --ignore "build/*" $(LNGS)
 
 staticfiles: jsi18n
-	./manage.py collectstatic --noinput
+	./manage.py collectstatic --noinput --no-post-process
 
 compress: npminstall
-	./manage.py compress
+	./manage.py compress --force
 
 jsi18n: localecompile
 	./manage.py compilejsi18n
