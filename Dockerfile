@@ -26,9 +26,6 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 # Set work directory
 WORKDIR /app
 
-# Copy the current directory contents into the container
-COPY . /app/
-
 # Install Python dependencies and Gunicorn
 RUN pip3 install -e ".[dev]" gunicorn
 
@@ -46,6 +43,15 @@ RUN make npminstall
 
 # Compile language files
 RUN make localecompile
+
+# Set work directory
+WORKDIR /app
+
+# Copy the current directory contents into the container
+COPY . /app/
+
+# Change to src directory as per documentation
+WORKDIR /app/src
 
 # Start Gunicorn
 CMD ["gunicorn", "pretix.wsgi"]
