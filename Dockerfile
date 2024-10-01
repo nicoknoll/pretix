@@ -26,6 +26,9 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 # Set work directory
 WORKDIR /app
 
+# Copy the current directory contents into the container
+COPY . /app/
+
 # Install Python dependencies and Gunicorn
 RUN pip3 install -e ".[dev]" gunicorn
 
