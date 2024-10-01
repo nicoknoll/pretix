@@ -29,13 +29,11 @@ WORKDIR /app
 # Copy the current directory contents into the container
 COPY . /app/
 
-# Install Python dependencies
-RUN pip3 install -e ".[dev]"
-
+# Install Python dependencies and Gunicorn
+RUN pip3 install -e ".[dev]" gunicorn
 
 # Change to src directory as per documentation
 WORKDIR /app/src
-
 
 # Collect static files
 RUN python manage.py collectstatic --noinput
@@ -49,8 +47,8 @@ RUN make npminstall
 # Compile language files
 RUN make localecompile
 
-# Expose port 8000 for the development server
+# Expose port 8000 for Gunicorn
 EXPOSE 8000
 
-# Start the development server
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Start Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "pretix.wsgi:application"]
