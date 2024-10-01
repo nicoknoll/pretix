@@ -1,4 +1,4 @@
-# Use an official Python 3.9 runtime as a parent image
+# Use an official Python runtime as a parent image
 FROM python:3.9
 
 # Set environment variables
@@ -16,7 +16,8 @@ RUN apt-get update && apt-get install -y \
     libxslt1-dev \
     libenchant-2-2 \
     gettext \
-    git
+    git \
+    make
 
 # Install Node.js 20.x
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
@@ -28,36 +29,26 @@ WORKDIR /app
 # Copy the current directory contents into the container
 COPY . /app/
 
-# Create and activate virtual environment
-RUN python3 -m venv env
-ENV PATH="/app/env/bin:$PATH"
-
-# Upgrade pip and setuptools
-RUN pip3 install -U pip setuptools
+# Change to src directory as per documentation
+WORKDIR /app/src
 
 # Install Python dependencies
 RUN pip3 install -e ".[dev]"
 
-# Install Gunicorn
-RUN pip3 install gunicorn
-
-# Install npm dependencies
-RUN cd src/ && npm install
-
 # Collect static files
-RUN cd src/ && python manage.py collectstatic --noinput
-
-# Compile language files
-RUN cd src/ && make localecompile
+RUN python manage.py collectstatic --noinput
 
 # Run database migrations
-RUN cd src/ && python manage.py migrate
+RUN python manage.py migrate
 
-# Expose port 8000 for Gunicorn
+# Install JavaScript dependencies
+RUN make npminstall
+
+# Compile language files
+RUN make localecompile
+
+# Expose port 8000 for the development server
 EXPOSE 8000
 
-# Set the working directory to /app/src where manage.py is located
-WORKDIR /app/src
-
-# Start Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "pretix.wsgi:application"]
+# Start the development server
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
