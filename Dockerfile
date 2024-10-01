@@ -29,11 +29,13 @@ WORKDIR /app
 # Copy the current directory contents into the container
 COPY . /app/
 
+# Install Python dependencies
+RUN pip3 install -e ".[dev]"
+
+
 # Change to src directory as per documentation
 WORKDIR /app/src
 
-# Install Python dependencies
-RUN pip3 install -e ".[dev]"
 
 # Collect static files
 RUN python manage.py collectstatic --noinput
