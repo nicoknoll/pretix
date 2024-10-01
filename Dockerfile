@@ -35,9 +35,6 @@ RUN pip3 install -e ".[dev]" gunicorn
 # Change to src directory as per documentation
 WORKDIR /app/src
 
-# Run database migrations
-RUN python manage.py migrate
-
 # Install JavaScript dependencies
 RUN make npminstall
 
@@ -59,5 +56,5 @@ COPY . /app/
 # Change to src directory as per documentation
 WORKDIR /app/src
 
-# Start Gunicorn
-CMD ["gunicorn", "pretix.wsgi"]
+# Start the application with database migration and Gunicorn
+CMD ["sh", "-c", "python manage.py migrate && gunicorn pretix.wsgi"]
