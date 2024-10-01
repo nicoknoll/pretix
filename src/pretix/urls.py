@@ -61,7 +61,7 @@ base_patterns = [
     re_path(r'^api/$', RedirectView.as_view(url='/api/v1/'), name='redirect-api-version'),
     re_path(r'^.well-known/apple-developer-merchantid-domain-association$',
             applepay.association, name='applepay.association'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 control_patterns = [
     re_path(r'^control/', include((pretix.control.urls, 'control'))),
