@@ -59,8 +59,9 @@ RUN chmod +x /usr/local/bin/pretix && \
     mkdir -p data && \
     chown -R pretixuser:pretixuser /pretix /data data &&  \
     su pretixuser -c "cd /pretix/src && make production"
+
 USER pretixuser
-VOLUME ["/etc/pretix", "/data"]
-EXPOSE 80
-ENTRYPOINT ["pretix"]
-CMD ["all"]
+
+EXPOSE 8000
+
+CMD ["gunicorn", "pretix.wsgi", "--bind", "0.0.0.0:8000"]
