@@ -47,8 +47,5 @@ RUN make npminstall
 # Compile language files
 RUN make localecompile
 
-# Expose port 8000 for Gunicorn
-EXPOSE 8000
-
 # Start Gunicorn
 CMD ["gunicorn", "pretix.wsgi"]
