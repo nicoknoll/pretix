@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'djangoformsetjs',
     'compressor',
-    'whitenoise',
     'bootstrap3',
     'pretix.plugins.banktransfer',
     'pretix.plugins.stripe',
@@ -210,7 +209,7 @@ STORAGES = {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
 
