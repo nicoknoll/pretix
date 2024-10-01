@@ -18,8 +18,8 @@ RUN apt-get update && apt-get install -y \
     gettext \
     git
 
-# Install Node.js 17.x
-RUN curl -sL https://deb.nodesource.com/setup_17.x | bash - \
+# Install Node.js 20.x
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs
 
 # Set work directory
