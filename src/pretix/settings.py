@@ -451,6 +451,7 @@ MIDDLEWARE = [
     'pretix.control.middleware.AuditLogMiddleware',
     'pretix.base.middleware.LocaleMiddleware',
     'pretix.base.middleware.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # new
     'pretix.presale.middleware.EventMiddleware',
     'pretix.api.middleware.ApiScopeMiddleware',
 ]
