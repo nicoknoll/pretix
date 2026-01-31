@@ -1,0 +1,1389 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-25 13:34+0200\n"
+"PO-Revision-Date: 2023-11-28 15:36+0000\n"
+"Last-Translator: Raphael Michel <michel@rami.io>\n"
+"Language-Team: German (informal) <https://translate.pretix.eu/projects/"
+"pretix/pretix/de_Informal/>\n"
+"Language: de_Informal\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.2.1\n"
+
+#: pretix_ticketbourse/apps.py:16 pretix_ticketbourse/signals.py:269
+#: pretix_ticketbourse/signals.py:468
+msgid "Ticket Bourse"
+msgstr "Ticketbörse"
+
+#: pretix_ticketbourse/apps.py:18
+msgid "Allow customers to resell their tickets"
+msgstr "Ermögliche Kunden ihre Tickets weiterzuverkaufen"
+
+#: pretix_ticketbourse/models.py:37 pretix_ticketbourse/models.py:400
+msgid "Auto"
+msgstr "Automatisch"
+
+#: pretix_ticketbourse/models.py:38 pretix_ticketbourse/models.py:401
+msgid "Direct"
+msgstr "Direkt"
+
+#: pretix_ticketbourse/models.py:40 pretix_ticketbourse/models.py:403
+msgid "Mode"
+msgstr "Modus"
+
+#: pretix_ticketbourse/models.py:43 pretix_ticketbourse/models.py:408
+msgctxt "ticketbourse_state"
+msgid "Requested"
+msgstr "Angefragt"
+
+#: pretix_ticketbourse/models.py:44
+msgctxt "ticketbourse_state"
+msgid "Approved"
+msgstr "Freigeben"
+
+#: pretix_ticketbourse/models.py:45
+msgctxt "ticketbourse_state"
+msgid "Paid"
+msgstr "Bezahlt"
+
+#: pretix_ticketbourse/models.py:46 pretix_ticketbourse/models.py:410
+msgctxt "ticketbourse_state"
+msgid "Completed"
+msgstr "Abgeschlossen"
+
+#: pretix_ticketbourse/models.py:47 pretix_ticketbourse/models.py:411
+msgctxt "ticketbourse_state"
+msgid "Aborted"
+msgstr "Abgebrochen"
+
+#: pretix_ticketbourse/models.py:48 pretix_ticketbourse/models.py:412
+msgctxt "ticketbourse_state"
+msgid "Failed"
+msgstr "Fehlgeschlagen"
+
+#: pretix_ticketbourse/models.py:56 pretix_ticketbourse/models.py:428
+msgid "State"
+msgstr "Zustand"
+
+#: pretix_ticketbourse/models.py:409
+msgctxt "ticketbourse_state"
+msgid "Buy request approved"
+msgstr "Kaufanfrage freigegeben"
+
+#: pretix_ticketbourse/models.py:413
+msgctxt "ticketbourse_state"
+msgid "Failed because order was canceled"
+msgstr "Fehlgeschlagen wegen Storno"
+
+#: pretix_ticketbourse/models.py:414
+msgctxt "ticketbourse_state"
+msgid "Failed because positions were checked-in"
+msgstr "Fehlgeschlagen wegen eingecheckten Tickets"
+
+#: pretix_ticketbourse/models.py:415
+msgctxt "ticketbourse_state"
+msgid "Failed because buy request failed"
+msgstr "Fehlgeschlagen wegen fehlgeschlagener Kaufanfrage"
+
+#: pretix_ticketbourse/settings.py:19
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:253
+msgid "Cancellation fee"
+msgstr "Stornogebühr"
+
+#: pretix_ticketbourse/settings.py:29
+msgid "Payment term in days"
+msgstr "Zahlungsziel in Tagen"
+
+#: pretix_ticketbourse/settings.py:37
+msgid "Banktransfer refund reason"
+msgstr "Erstattungsgrund bei Banküberweisung"
+
+#: pretix_ticketbourse/settings.py:45
+msgid "Enable automatic approval/cancelation"
+msgstr "Auto-Freigabe/-Storno aktivieren"
+
+#: pretix_ticketbourse/settings.py:53
+msgid "Batch automatic buy request approvals"
+msgstr "Auto-Kaufanfragen zusammengefasst freigeben"
+
+#: pretix_ticketbourse/settings.py:55
+msgid "Disabled"
+msgstr "Deaktiviert"
+
+#: pretix_ticketbourse/settings.py:56
+msgid "Hourly"
+msgstr "Stündlich"
+
+#: pretix_ticketbourse/settings.py:57
+msgid "Daily"
+msgstr "Täglich"
+
+#: pretix_ticketbourse/settings.py:58
+msgid "Aligned to payment term"
+msgstr "An Zahlungsziel angepasst"
+
+#: pretix_ticketbourse/settings.py:60
+msgid ""
+"The auto-approval algorithm statistically discriminates buy requests that "
+"span mulitple product groups. Delaying and batching approvals somewhat "
+"couters that. The batching interval should be as large as possible. However, "
+"batching slows down reselling, so there is a tradeoff between resell speed "
+"and fairness. At times with many sell requests, it might make sense to "
+"choose a short interval (e.g. hourly), otherwise longer intervals are "
+"recommended."
+msgstr ""
+"Der Auto-Freigabe-Algorithmus diskriminiert statistisch Kaufanfragen, die "
+"Positionen aus mehreren Produkt-Gruppen enthalten. Durch Verzögern und "
+"anschließendem gesammeltem Freigeben viele Kaufanfragen kann dieser Effekt "
+"abgeschwächt werden. Das Freigabe-Interval sollte dafür so groß wie möglich "
+"sein. Allerdings verlangsamt ein großes Freigabe-Interval das "
+"Weiterverkaufen. Hier muss man daher zwischen Verkaufsgeschwindigkeit und "
+"Fairness abwägen. In Phasen mit vielen Verkaufsanfragen kann es sinnvoll "
+"sein ein kurzes Interval (z.B. stündlich) zu wählen, ansonsten sind lange "
+"Intervalle empfehlenswerter."
+
+#: pretix_ticketbourse/settings.py:68
+msgid "Allow creation/edits of requests"
+msgstr "Erstellen/Bearbeiten von Kauf-/Verkaufsanfragen erlauben"
+
+#: pretix_ticketbourse/settings.py:86
+msgid "No request or request failed"
+msgstr "Keine Anfrage oder Anfrage fehlgeschlagen"
+
+#: pretix_ticketbourse/settings.py:88
+msgid ""
+"To buy or sell a ticket on the Ticket:Bourse, you need to create a request "
+"with one of the buttons below."
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:103
+msgid "Items allowed to buy"
+msgstr "Kaufbare Produkte"
+
+#: pretix_ticketbourse/settings.py:108
+msgid ""
+"Caution: Removing items will abort all open buy requests with these items!"
+msgstr ""
+"Achtung: Beim Entfernen von Produkten werden alle ausstehenden Kaufanfragen "
+"mit diesen Produkten abgebrochen!"
+
+#: pretix_ticketbourse/settings.py:117
+msgid "Items allowed to sell"
+msgstr "Verkaufbare Produkte"
+
+#: pretix_ticketbourse/settings.py:122
+msgid ""
+"Caution: Removing items will abort all open sell requests with these items!"
+msgstr ""
+"Achtung: Beim Entfernen von Produkten werden alle ausstehenden "
+"Verkaufsanfragen mit diesen Produkten abgebrochen!"
+
+#: pretix_ticketbourse/settings.py:131
+msgid "Target sell/buy balance"
+msgstr "Zielbilanz Verkäufe/Käufe"
+
+#: pretix_ticketbourse/settings.py:132
+msgid ""
+"Caution: Changes to this value can immediatly cancel or approve many orders! "
+"Positive values cause the ticket bourse to sell extra tickets, negative "
+"values cause it to buy back tickets."
+msgstr ""
+"Achtung: Änderungen dieses Wertes können unmittelbar zu sehr vielen Stornos "
+"oder Freigaben führen! Positive Werte führen zum Verkauf zusätzlicher "
+"Tickets, negative Werte zum Rückkauf von Tickets."
+
+#: pretix_ticketbourse/settings.py:140
+msgid "Oversell limit"
+msgstr "Überverkaufs-Limit"
+
+#: pretix_ticketbourse/settings.py:141
+msgid ""
+"Limits the number of tickets to risk overselling. Safeguard. Negative values "
+"disable the limit."
+msgstr ""
+"Begrenzt die Anzahl an Tickets, die das Plugin riskieren darf zu viel zu "
+"verkaufen. Dies ist ein Sicherheitsmechanismus. Negative Werte deakitvieren "
+"das Limit."
+
+#: pretix_ticketbourse/settings.py:154 pretix_ticketbourse/settings.py:244
+#: pretix_ticketbourse/settings.py:446
+msgid "Text above options"
+msgstr "Text über Auswahl"
+
+#: pretix_ticketbourse/settings.py:156 pretix_ticketbourse/settings.py:246
+msgid ""
+"Please select whether you want to buy a ticket directly from a specific "
+"person or you want to take part in the automatic ticket resale:"
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:165 pretix_ticketbourse/settings.py:255
+#: pretix_ticketbourse/settings.py:457
+msgid "Option Direct (label)"
+msgstr "Option \"Direkt\" (Beschriftung)"
+
+#: pretix_ticketbourse/settings.py:167 pretix_ticketbourse/settings.py:257
+#: pretix_ticketbourse/settings.py:459 pretix_ticketbourse/views.py:457
+msgid "Direct Code"
+msgstr "Direct Code"
+
+#: pretix_ticketbourse/settings.py:174 pretix_ticketbourse/settings.py:264
+#: pretix_ticketbourse/settings.py:466
+msgid "Option Direct"
+msgstr "Option \"Direkt\""
+
+#: pretix_ticketbourse/settings.py:176
+msgid ""
+"Select this option, if you want to buy a ticket from a specific person.\n"
+"\n"
+"After placing your order, you well get a direct code. The person you want to "
+"buy a ticket from has to enter this code to start the transaction."
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:187 pretix_ticketbourse/settings.py:277
+#: pretix_ticketbourse/settings.py:480
+msgid "Option Auto (label)"
+msgstr "Option \"Automatisch\" (Beschriftung)"
+
+#: pretix_ticketbourse/settings.py:189 pretix_ticketbourse/settings.py:279
+#: pretix_ticketbourse/settings.py:482
+msgid "Random match"
+msgstr "Zufallstreffer"
+
+#: pretix_ticketbourse/settings.py:196 pretix_ticketbourse/settings.py:286
+#: pretix_ticketbourse/settings.py:489
+msgid "Option Auto"
+msgstr "Option \"Automatisch\""
+
+#: pretix_ticketbourse/settings.py:198 pretix_ticketbourse/settings.py:288
+msgid ""
+"Select this option, if you want to buy a ticket from anyone who offers it.\n"
+"\n"
+"Whenever someone offers to sell a ticket, your order has the chance to be "
+"selected at random. You will be notified in this case."
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:209 pretix_ticketbourse/settings.py:299
+#: pretix_ticketbourse/settings.py:500
+msgid "Text below options"
+msgstr "Text unter Auswahl"
+
+#: pretix_ticketbourse/settings.py:211 pretix_ticketbourse/settings.py:301
+msgid ""
+"Note that you can change your decision afterwards until you have been "
+"offered a ticket."
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:222 pretix_ticketbourse/settings.py:312
+#: pretix_ticketbourse/settings.py:511
+msgid "Direct selected"
+msgstr "\"Direkt\" ausgewählt"
+
+#: pretix_ticketbourse/settings.py:224
+msgid "You selected to buy a ticket directly."
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:232 pretix_ticketbourse/settings.py:325
+#: pretix_ticketbourse/settings.py:521
+msgid "Auto selected"
+msgstr "\"Automatisch\" ausgewählt"
+
+#: pretix_ticketbourse/settings.py:234
+msgid "You selected to buy a ticket automatically."
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:266
+msgid ""
+"Select this option, if you want to buy a ticket from a specific person.\n"
+"\n"
+"You well get a direct code. The person you want to buy a ticket from has to "
+"enter this code to start the transaction."
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:314
+msgid ""
+"You selected that you want to buy a ticket directly. Copy the direct code "
+"below and send it to the person you want to buy the ticket from. The person "
+"has to create a direct sell request and enter your direct code. You will be "
+"notified, when your order has been approved and can be payed."
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:327
+msgid ""
+"You selected that you want to buy a ticket automatically. Please wait until "
+"you receive an offer to buy a ticket. You will be notified, when this is the "
+"case and your order can be payed."
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:337
+msgid "Order approved"
+msgstr "Bestellung freigegeben"
+
+#: pretix_ticketbourse/settings.py:339
+msgid ""
+"You received an offer to buy a ticket.\n"
+"\n"
+"If you don't plan to buy a ticket anymore, please cancel your order so "
+"someone else can get chance at buying the ticket."
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:350
+msgid "Request failed"
+msgstr "Anfrage fehlgeschlagen."
+
+#: pretix_ticketbourse/settings.py:352
+msgid "Your request to buy a ticket failed."
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:363 pretix_ticketbourse/settings.py:533
+#: pretix_ticketbourse/settings.py:562
+msgid "Subject"
+msgstr "Betreff"
+
+#: pretix_ticketbourse/settings.py:366
+#, python-brace-format
+msgid "Order approved and awaiting payment: {code}"
+msgstr "Bestellung freigegeben und wartet auf Bezahlung: {code}"
+
+#: pretix_ticketbourse/settings.py:373 pretix_ticketbourse/settings.py:543
+#: pretix_ticketbourse/settings.py:572
+msgid "Text"
+msgstr "Text"
+
+#: pretix_ticketbourse/settings.py:376
+#, python-brace-format
+msgid ""
+"Hello,\n"
+"\n"
+"we approved your order for {event} and will be happy to welcome you\n"
+"at our event.\n"
+"\n"
+"Please continue by paying for your order before {expire_date}.\n"
+"\n"
+"You can select a payment method and perform the payment here:\n"
+"\n"
+"{url}\n"
+"\n"
+"Best regards,\n"
+"Your {event} team"
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:401
+msgid "Auto sell requested"
+msgstr "Automatischer Verkauf angefragt"
+
+#: pretix_ticketbourse/settings.py:403
+msgid ""
+"You requested to sell your ticket automatically. We will notify you as soon "
+"as we were able to sell it."
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:412
+msgid "Direct sell requested"
+msgstr "Direktverkauf angefragt"
+
+#: pretix_ticketbourse/settings.py:414
+msgid ""
+"You requested to sell your ticket to a specfic person. The order that "
+"matches the direct code you have entered is pending payment. We will notify "
+"you, when it is payed and we have prepared your refund."
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:424
+msgid "Sell completed"
+msgstr "Verkauf abgeschlossen"
+
+#: pretix_ticketbourse/settings.py:426
+msgid "Your request to sell your ticket succeeded."
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:434
+msgid "Sell failed"
+msgstr "Verkauf fehlgeschlagen"
+
+#: pretix_ticketbourse/settings.py:436
+msgid "Your request to sell your ticket failed."
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:448
+msgid ""
+"Please select whether you want to sell your ticket directly to a specific "
+"person or you want to take part in the automatic ticket resale:"
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:468
+msgid ""
+"Select this option, if you want to sell your ticket to a specific person.\n"
+"\n"
+"The person you want to sell your ticket to must create a Ticket:Bourse order "
+"first and select the option for direct resale. The person will get a direct "
+"code that you need to enter here to start the transaction:"
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:491
+msgid ""
+"Select this option, if you want to sell your ticket to anyone who wants it. "
+"You will be notified when your ticket is sold."
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:513
+msgid "You selected to sell your ticket directly to a specific person."
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:523
+msgid "You selected to sell your ticket automatically."
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:536
+#, python-brace-format
+msgid "Order canceled: {code}"
+msgstr "Bestellung storniert: {code}"
+
+#: pretix_ticketbourse/settings.py:546
+#, python-brace-format
+msgid ""
+"Hello,\n"
+"\n"
+"your order {code} for {event} has been canceled.\n"
+"\n"
+"You can view the details of your order at\n"
+"{url}\n"
+"\n"
+"Best regards,\n"
+"Your {event} team"
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:565
+#, python-brace-format
+msgid "Ticket:bourse request failed: {code}"
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:575
+#, python-brace-format
+msgid ""
+"Hello,\n"
+"\n"
+"your request, to sell your order {code} for {event} failed.\n"
+"You can create a new request, if you are still interested.\n"
+"\n"
+"You can view the details of your order at\n"
+"{url}\n"
+"\n"
+"Best regards,\n"
+"Your {event} team"
+msgstr ""
+
+#: pretix_ticketbourse/settings.py:617
+#, python-brace-format
+msgid "Available placeholders: {list}"
+msgstr "Verfügbare Platzhalter: {list}"
+
+#: pretix_ticketbourse/settings.py:641 pretix_ticketbourse/settings.py:644
+msgid "Products must not overlap between groups."
+msgstr ""
+
+#: pretix_ticketbourse/signals.py:36
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/checkout_confirm.html:7
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/order_info.html:9
+msgid "Ticket:Bourse"
+msgstr "Ticket:Börse"
+
+#: pretix_ticketbourse/signals.py:213
+msgid "Direct buy request started."
+msgstr "Direkte Kaufanfrage erstellt."
+
+#: pretix_ticketbourse/signals.py:215
+msgid "Auto buy request started."
+msgstr "Auto-Kaufanfrage erstellt."
+
+#: pretix_ticketbourse/signals.py:217
+msgid ""
+"Buy request mode forced to \"direct\" by seller starting a sell request with "
+"this order's direct code."
+msgstr ""
+"Modus der Anfrage zu \"direkt\" geändert, da Verkaufsanfrage mit dem Direct-"
+"Code dieser Bestellung erstellt wurde."
+
+#: pretix_ticketbourse/signals.py:219
+msgid "Buy request deleted."
+msgstr "Kaufanfrage gelöscht."
+
+#: pretix_ticketbourse/signals.py:221
+msgid "Order approved by buy request."
+msgstr "Bestellung durch Kaufanfrage freigegeben."
+
+#: pretix_ticketbourse/signals.py:223
+msgid ""
+"An email has been sent to notify the user that the order was approved by the "
+"ticket bourse."
+msgstr ""
+"Eine E-Mail wurde verschickt, die den Benutzer auf die Freigabe der "
+"Bestellung durch die Ticketbörse hinweist."
+
+#: pretix_ticketbourse/signals.py:225
+msgid "Order paid, buy request waiting for completion of sell request."
+msgstr ""
+"Bestellung bezahlt, Kaufanfrage wartet auf Abschluss der Verkaufsanfrage."
+
+#: pretix_ticketbourse/signals.py:227
+msgid "Buy request completed."
+msgstr "Kaufanfrage abgeschlossen."
+
+#: pretix_ticketbourse/signals.py:229
+msgid "Buy request failed."
+msgstr "Kaufanfrage fehlgeschlagen."
+
+#: pretix_ticketbourse/signals.py:231
+msgid "Buy request was blocked."
+msgstr "Kaufanfrage wurde gesperrt."
+
+#: pretix_ticketbourse/signals.py:233
+msgid "Buy request was unblocked."
+msgstr "Kaufanfrage wurde entsperrt."
+
+#: pretix_ticketbourse/signals.py:238
+#, python-format
+msgid "Direct sell request started with target order %(code)s."
+msgstr "Direkte Verkaufsanfrage erstellt mit Ziel-Bestellung %(code)s."
+
+#: pretix_ticketbourse/signals.py:240
+msgid "Auto sell request started."
+msgstr "Auto-Verkaufsanfrage erstellt."
+
+#: pretix_ticketbourse/signals.py:242
+msgid "Sell request canceled."
+msgstr "Verkaufsanfrage zurückgezogen."
+
+#: pretix_ticketbourse/signals.py:244
+msgid "Sell request target order approved."
+msgstr "Ziel-Bestellung der Verkaufsanfrage freigegeben."
+
+#: pretix_ticketbourse/signals.py:246
+msgid "Sell request completed."
+msgstr "Verkaufsanfrage abgeschlossen."
+
+#: pretix_ticketbourse/signals.py:248
+msgid ""
+"An email has been sent to notify the user that the ticket bourse request was "
+"completed and the order was canceled."
+msgstr ""
+"Eine E-Mail wurde verschickt, die den Benutzer auf den Abschluss der "
+"Verkaufsanfrage und die Stornierung der Bestellung."
+
+#: pretix_ticketbourse/signals.py:251
+msgid "Sell request failed: Order was canceled."
+msgstr "Verkaufsanfrage fehlgeschlagen: Bestellung ist bereits storniert."
+
+#: pretix_ticketbourse/signals.py:253
+msgid "Sell request failed: Order was checked in."
+msgstr "Verkaufsanfrage fehlgeschlagen: Bestellung ist bereits eingecheckt."
+
+#: pretix_ticketbourse/signals.py:255
+msgid "Direct sell request failed: Target order expired or was canceled."
+msgstr ""
+"Direkte Verkaufsanfrage fehlgeschlagen: Ziel-Bestellung ist abgelaufen oder "
+"wurde storniert."
+
+#: pretix_ticketbourse/signals.py:256
+msgid "Direct sell request failed"
+msgstr "Direkte Verkaufsanfrage fehlgeschlagen"
+
+#: pretix_ticketbourse/signals.py:258
+msgid ""
+"An email has been sent to notify the user that the ticket bourse request "
+"failed because the buyer did not pay in time or canceled his order."
+msgstr ""
+"Eine E-Mail wurde verschickt, die den Benutzer darauf hinweist, dass die "
+"Verkaufsanfrage fehlgeschlagen ist, da der Käufer nicht rechtzeitig bezahlt "
+"hat oder die Bestellung storniert hat."
+
+#: pretix_ticketbourse/signals.py:261
+#, python-format
+msgid ""
+"Ticketbourse result: %(to_be_approved)d to be approved, %(to_be_canceled)d "
+"to be canceled."
+msgstr ""
+"Ticketbörse-Ergebnis: %(to_be_approved)d freigeben, %(to_be_canceled)d "
+"stornieren."
+
+#: pretix_ticketbourse/signals.py:285
+msgid "Ticket bourse buy state"
+msgstr "Ticketbörse Kaufstatus"
+
+#: pretix_ticketbourse/signals.py:288 pretix_ticketbourse/signals.py:304
+msgid "No request"
+msgstr "Keine Anfrage"
+
+#: pretix_ticketbourse/signals.py:289 pretix_ticketbourse/signals.py:305
+msgid "Any state (request exists)"
+msgstr "Beliebiger Status (Anfrage existiert)"
+
+#: pretix_ticketbourse/signals.py:294
+msgid "Ticket bourse buy mode"
+msgstr "Ticketbörse Kaufmodus"
+
+#: pretix_ticketbourse/signals.py:301
+msgid "Ticket bourse sell state"
+msgstr "Ticketbörse Verkaufsstatus"
+
+#: pretix_ticketbourse/signals.py:306
+msgid "Any failed state"
+msgstr "Fehlgeschlagen (beliebiger Grund)"
+
+#: pretix_ticketbourse/signals.py:311
+msgid "Ticket bourse sell mode"
+msgstr "Ticketbörse Verkaufsmodus"
+
+#: pretix_ticketbourse/signals.py:318
+msgid "Has blocked buy request"
+msgstr "Hat eine gesperrte Ticketbörse-Kaufanfrage"
+
+#: pretix_ticketbourse/signals.py:321
+msgid "Yes"
+msgstr "Ja"
+
+#: pretix_ticketbourse/signals.py:322
+msgid "No"
+msgstr "Nein"
+
+#: pretix_ticketbourse/signals.py:412
+msgid "Has no ticket bourse buy request"
+msgstr "Hat keine Ticketbörse-Kaufanfrage"
+
+#: pretix_ticketbourse/signals.py:414
+msgid "Has ticket bourse buy request (any state)"
+msgstr "Hat Ticketbörse-Kaufanfrage (beliebiger Status)"
+
+#: pretix_ticketbourse/signals.py:416
+#, python-format
+msgid "Has ticket bourse buy request with state \"%(state)s\""
+msgstr "Hat Ticketbörse-Kaufanfrage mit Status \"%(state)s\""
+
+#: pretix_ticketbourse/signals.py:419
+#, python-format
+msgid "Has ticket bourse buy request with mode \"%(mode)s\""
+msgstr "Hat Ticketbörse-Kaufanfrage mit Modus \"%(mode)s\""
+
+#: pretix_ticketbourse/signals.py:423
+msgid "Has no ticket bourse sell request"
+msgstr "Hat keine Ticketbörse-Verkaufsanfrage"
+
+#: pretix_ticketbourse/signals.py:425
+msgid "Has ticket bourse sell request (any state)"
+msgstr "Hat Ticketbörse-Verkaufsanfrage (beliebiger Status)"
+
+#: pretix_ticketbourse/signals.py:427
+msgid "Has ticket bourse sell request (any failed state)"
+msgstr "Hat Ticketbörse-Verkaufsanfrage (beliebiger fehlgeschlagener Status)"
+
+#: pretix_ticketbourse/signals.py:429
+#, python-format
+msgid "Has ticket bourse sell request with state \"%(state)s\""
+msgstr "Hat Ticketbörse-Verkaufsanfrage mit Status \"%(state)s\""
+
+#: pretix_ticketbourse/signals.py:432
+#, python-format
+msgid "Has ticket bourse sell request with mode \"%(mode)s\""
+msgstr "Hat Ticketbörse-Verkaufsanfrage mit Modus \"%(mode)s\""
+
+#: pretix_ticketbourse/signals.py:503
+msgid "Ticketbourse buy request expired."
+msgstr "Ticketbörse-Kaufanfrage ist abgelaufen."
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/approve_order.html:4
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/approve_order.html:8
+msgid "Ticket bourse: Approve order"
+msgstr "Ticketbörse: Bestellung freigeben"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/approve_order.html:10
+msgid ""
+"Do you really want to approve this order via ticket bourse? You cannot "
+"revert this action."
+msgstr ""
+"Möchtest du diese Bestellung wirklich über die Ticketbörse freigeben? You "
+"cannot revert this action."
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/approve_order.html:14
+msgid ""
+"This will affect the ticket bourse sell/buy balance. Depending on the "
+"current state and settings a sell request will be completed (and an order "
+"canceled) because of this action."
+msgstr ""
+"Dies wird sich auf die Verkauf-/Kauf-Bilanz der Ticketbörse auswirken. "
+"Abhängig vom aktuellen Stand und den Einstellungen kann dies dazu führen, "
+"dass eine Verkaufsanfrage abgeschlossen (und damit eine Bestellung "
+"storniert) wird."
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/approve_order.html:25
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/delete_request.html:20
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/unblock_request.html:27
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/sell/cancel_order.html:25
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/sell/delete_request.html:20
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/cancel_request.html:19
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/cancel_request.html:19
+msgid "No, take me back"
+msgstr "Nein, lieber nicht"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/approve_order.html:30
+msgid "Yes, approve order"
+msgstr "Ja, Bestellung freigeben"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/delete_request.html:4
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/delete_request.html:8
+msgid "Ticket bourse: Delete buy request"
+msgstr "Ticketbörse: Kaufanfrage löschen"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/delete_request.html:10
+msgid "Do you really want to delete this ticket bourse buy request?"
+msgstr "Möchtest du diese Ticket:Bourse-Kaufanfrage wirklich löschen?"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/delete_request.html:25
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/sell/delete_request.html:25
+msgid "Yes, delete request"
+msgstr "Ja, Anfrage löschen"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/unblock_request.html:4
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/unblock_request.html:8
+msgid "Ticket bourse: Unblock buy request"
+msgstr "Ticketbörse: Kaufanfrage entsperren"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/unblock_request.html:11
+msgid "Do you really want to unblock this buy request?"
+msgstr "Möchtest du diese Ticket:Bourse-Kaufanfrage wirklich entsperren?"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/unblock_request.html:13
+msgid "The order may be approved because of this action."
+msgstr "Die Bestellung wird durch diese Aktion möglicherweise freigegeben."
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/unblock_request.html:16
+msgid "The seller's order may be canceled because of this action."
+msgstr ""
+"Die Bestellung des Verkaufers wird durch diese Aktion möglicherweise "
+"storniert."
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/unblock_request.html:32
+msgid "Yes, unblock request"
+msgstr "Ja, Anfrage entsperren"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:7
+msgid "Ticket bourse requests"
+msgstr "Ticketbörse-Anfragen"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:15
+msgid "Buy Request"
+msgstr "Kaufanfrage"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:19
+msgid "This buy request is blocked!"
+msgstr "Diese Kaufanfrage wurde gesperrt!"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:21
+msgid ""
+"Regardless of auto/direct sell requests, this order will not be approved "
+"unless it is unblocked."
+msgstr ""
+"Unabhängig von automatischen oder direkten Verkaufsanfragen wird die "
+"Bestellung nicht freigegeben solange sie gesperrt ist."
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:23
+msgid ""
+"If the order is paid, the seller's order will not be canceled until the buy "
+"request is unblocked."
+msgstr ""
+"Wenn die Bestellung bezahlt wird, wird die Bestellung des Verkäufers nicht "
+"storniert, solange diese Kaufanfrage gesperrt ist."
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:29
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:76
+msgid "Mode:"
+msgstr "Modus:"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:32
+msgid "Buy from order(s):"
+msgstr "Kauf von Bestellung(en):"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:39
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:87
+msgid "State:"
+msgstr "Zustand:"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:42
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:90
+#, python-format
+msgid "(effective state: %(state)s)"
+msgstr "(effektiver Zustand: %(state)s)"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:48
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:96
+msgid "Positions:"
+msgstr "Positionen:"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:60
+msgid "Approve order"
+msgstr "Bestellung freigeben"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:63
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:108
+msgid "Delete request"
+msgstr "Anfrage löschen"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:67
+msgid "Block request"
+msgstr "Anfrage sperren"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:69
+msgid "Unblock request"
+msgstr "Anfrage entsperren"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:75
+msgid "Sell Request"
+msgstr "Verkaufsanfrage"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:79
+msgid "Sell to order:"
+msgstr "Verkauf an Bestellung:"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:82
+msgid "blocked"
+msgstr "gesperrt"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/order_info.html:105
+msgid "Cancel order"
+msgstr "Stornieren"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/sell/cancel_order.html:4
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/sell/cancel_order.html:8
+msgid "Ticket bourse: Cancel order"
+msgstr "Ticketbörse: Bestellung stornieren"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/sell/cancel_order.html:10
+msgid ""
+"Do you really want to cancel this order via ticket bourse? You cannot revert "
+"this action."
+msgstr ""
+"Möchtest du diese Bestellung wirklich über die Ticketbörse stornieren? Du "
+"kannst diese Aktion nicht rückgängig machen."
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/sell/cancel_order.html:14
+msgid ""
+"This will create a refund and affect the ticket bourse sell/buy balance. "
+"Depending on the current state and settings a buy request will be approved "
+"because of this action."
+msgstr ""
+"Dies wir eine Rückerstattung erzeugen und sich auf die Verkauf-/Kauf-Bilanz "
+"der Ticketbörse auswirken. Abhängig vom aktuellen Stand und den "
+"Einstellungen kann dies dazu führen, dass eine Kaufanfrage freigegeben wird."
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/sell/cancel_order.html:30
+msgid "Yes, cancel order"
+msgstr "Ja, Bestellung stornieren"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/sell/delete_request.html:4
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/sell/delete_request.html:8
+msgid "Ticket bourse: Delete sell request"
+msgstr "Ticketbörse: Verkaufsanfrage löschen"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/sell/delete_request.html:10
+msgid "Do you really want to delete this ticket bourse sell request?"
+msgstr "Möchtest du diese Ticket:Bourse-Verkaufsanfrage wirklich löschen?"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:6
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:9
+msgid "Ticket bourse settings"
+msgstr "Ticketbörse-Einstellungen"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:15
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:23
+msgid "Product groups"
+msgstr "Produkt gruppen"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:27
+msgid "Group 1"
+msgstr "Gruppe 1"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:29
+msgid "Group 2"
+msgstr "Gruppe 2"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:31
+msgid "Group 3"
+msgstr "Gruppe 3"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:38
+msgid "Buyer texts"
+msgstr "Käufer-Texte"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:42
+msgid "Checkout step"
+msgstr "Schritt im Bestellprozess"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:44
+msgid "Checkout confirmation"
+msgstr "Bestätigung im Bestellprozess"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:46
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:64
+msgid "Change/create request"
+msgstr "Anfrage erstellen/bearbeiten"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:48
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:62
+msgid "Order info box"
+msgstr "Infobox auf Bestellseite"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:50
+msgid "Order approved e-mail"
+msgstr "Bestellung freigegeben E-Mail"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:58
+msgid "Seller texts"
+msgstr "Verkäufer-Texte"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:66
+msgid "Change/create request confirmation"
+msgstr "Anfrage erstellen/bearbeiten Bestätigung"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:68
+msgid "Sell completed e-mail"
+msgstr "Verkauf abgeschlossen E-Mail"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:70
+msgid "Sell failed e-mail"
+msgstr "Verkauf fehlgeschlagen E-Mail"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:80
+msgid "Save"
+msgstr "Speichern"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/stats.html:5
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/stats.html:8
+msgid "Ticket bourse statistics"
+msgstr "Ticketbörse-Statistiken"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/control/stats.html:145
+#, fuzzy
+#| msgid "Ticket Bourse"
+msgid "Run ticket bourse"
+msgstr "Ticketbörse"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/cancel_request.html:6
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/cancel_request.html:8
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/cancel_request.html:6
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/cancel_request.html:8
+msgid "Cancel Ticket:Bourse request"
+msgstr "Ticket:Börse-Anfrage zurückziehen"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/cancel_request.html:13
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/cancel_request.html:13
+msgid "Are you sure, you want to cancel your Ticket:Bourse request?"
+msgstr "Möchtest du deine Ticket:Bourse-Anfrage wirklich zurückziehen?"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/cancel_request.html:24
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/cancel_request.html:24
+msgid "Yes, cancel request"
+msgstr "Ja, Anfrage zurückziehen"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/checkout.html:61
+msgid "Go back"
+msgstr "Zurück"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/checkout.html:66
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:454
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:297
+msgid "Continue"
+msgstr "Fortfahren"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/checkout_confirm.html:9
+msgid "Modify"
+msgstr "Bearbeiten"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:11
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:20
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:11
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:19
+msgid "Ticket:Bourse request"
+msgstr "Ticket:Börse-Anfrage"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:18
+msgid "taxes"
+msgstr "Steuern"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:23
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:21
+#, python-format
+msgid "Step %(current)s of %(total)s"
+msgstr "Schritt %(current)s von %(total)s"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:85
+msgid "Please select the product you want to add to your order."
+msgstr ""
+"Bitte wähle die Produkte aus, die du zu deiner Bestellung hinzufügen "
+"möchtest."
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:88
+msgid ""
+"You can skip this step if you only want to add addon product to existing "
+"tickets."
+msgstr ""
+"Du kannst diesen Schritt überspringen, wenn du nur Zusatzprodukte zu "
+"bestehenden Tickets hinzufügen möchtest."
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:95
+msgid ""
+"For some of the products, you can choose additional options before you "
+"continue."
+msgstr ""
+"Für manche Produkte kannst du Zusatzprodukte auswählen, bevor du fortfährst."
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:110
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:188
+msgid "New ticket"
+msgstr "Neues Ticket"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:116
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:194
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:123
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:126
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:229
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:235
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:238
+msgid "Attendee name"
+msgstr "Name Teilnehmer*in"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:119
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:197
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:127
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:239
+msgid "No attendee name provided"
+msgstr "Name der teilnehmenden Person nicht angegeben"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:137
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:215
+msgid "The image you previously uploaded"
+msgstr "Das zuvor hochgeladene Bild"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:146
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:224
+msgid "not answered"
+msgstr "nicht beantwortet"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:160
+msgid "Before we continue, we need you to answer some questions."
+msgstr ""
+"Bitte antworte auf die untenstehenden Fragen, bevor wir mit der Bestellung "
+"fortfahren."
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:162
+msgid ""
+"You need to fill all fields that are marked with <span>*</span> to continue."
+msgstr ""
+"Alle mit einem <span>*</span> markierten Felder müssen ausgefüllt werden."
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:179
+msgid "Copy answers from above"
+msgstr "Antworten von oben kopieren"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:237
+msgid "Seat"
+msgstr "Sitzplatz"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:251
+msgid "Selected add-ons"
+msgstr "Gewählte Zusatzprodukte"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:266
+msgctxt "subevent"
+msgid "Date"
+msgstr "Termin"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:287
+msgid "Copy answers"
+msgstr "Antworten kopieren"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:296
+msgid "Auto-fill with profile"
+msgstr "Automatisch mit Profil füllen"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:305
+msgid "Fill form"
+msgstr "Formular ausfüllen"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:320
+msgid "Please review the details below and confirm your request."
+msgstr ""
+"Bitte überprüfe die untenstehenden Details und bestätige deine Anfrage."
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:325
+msgid "Buy mode"
+msgstr "Kauf-Modus"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:340
+msgid "Tickets to buy"
+msgstr "Zu kaufende Tickets"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:347
+msgid "Product"
+msgstr "Produkt"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:348
+msgid "Price"
+msgstr "Preis"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:357
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:226
+msgid "Add-On to"
+msgstr "Zusatzprodukt zu"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:371
+#, python-format
+msgid "<strong>plus</strong> %(rate)s%% %(taxname)s"
+msgstr "<strong>zzgl.</strong> %(rate)s%% %(taxname)s"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:381
+#, python-format
+msgid "incl. %(rate)s%% %(taxname)s"
+msgstr "inkl. %(rate)s%% %(taxname)s"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:393
+msgid "Total"
+msgstr "Gesamt"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:399
+#, python-format
+msgid "incl. %(tax_sum)s taxes"
+msgstr "inkl. %(tax_sum)s Steuern"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:415
+msgid "Confirmations"
+msgstr "Bestätigungen"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:439
+msgid ""
+"The order will be given the status WAITING FOR APPROVAL until you receive an "
+"offer for the selected products."
+msgstr ""
+"Die Bestellung erhält den Status FREIGABE AUSSTEHEND, bis du ein Angebot für "
+"die ausgewählten Produkte bekommst."
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:440
+msgid ""
+"Tickets that already have been paid for are still valid. You can also cancel "
+"your request at any time and restore your original order."
+msgstr ""
+"Bereits bezahlte Tickets sind trotzdem gültig. Du kannst deine Anfrage auch "
+"jederzeit abbrechen und deine ursprüngliche Bestellung wiederherstellen."
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:448
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:291
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:456
+msgid "Place binding order"
+msgstr "Zahlungspflichtig bestellen"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:458
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:299
+msgid "Confirm"
+msgstr "Bestätigen"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/order_info.html:19
+msgid "Your direct code is:"
+msgstr "Dein Direct Code ist:"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/order_info.html:20
+msgid "Click to copy"
+msgstr "Zum Kopieren anklicken"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/order_info.html:36
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/order_info.html:64
+msgid "Change request"
+msgstr "Anfrage bearbeiten"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/order_info.html:45
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/order_info.html:72
+msgid "Cancel request"
+msgstr "Anfrage zurückziehen"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/order_info.html:54
+msgid "Please wait until we processed your request."
+msgstr "Bitte warte, bis deine Anfrage verarbeitet wurde."
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/order_info.html:97
+msgid "Sell tickets"
+msgstr "Tickets verkaufen"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/order_info.html:107
+msgid "Buy tickets"
+msgstr "Tickets kaufen"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:93
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:203
+msgid "Ticket to sell"
+msgstr "Zu verkaufende Tickets"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:149
+msgid "Please select:"
+msgstr "Bitte wähle aus:"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:167
+msgid "Your bank details for the refund:"
+msgstr "Deine Bankverbindung für die Rückerstattung"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:172
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:276
+msgid "Refund"
+msgstr "Erstattung"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:182
+msgid ""
+"Please review the details below and confirm your request to sell your "
+"tickets."
+msgstr ""
+"Bitte überprüfe die untenstehenden Details und bestätige die Anfrage zum "
+"Verkauf deiner Tickets."
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:187
+msgid "Sell mode"
+msgstr "Verkaufs-Modus"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:195
+msgid "Direct Code:"
+msgstr "Direct Code:"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:223
+msgid "Relationship"
+msgstr "Beziehung"
+
+#: pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:262
+msgid "Refund amount"
+msgstr "Erstattungsbetrag"
+
+#: pretix_ticketbourse/utils.py:296
+#, python-format
+msgid "You cannot have more than %s item in your order."
+msgid_plural "You cannot have more than %s items in your order."
+msgstr[0] "Du kannst nicht mehr als %s Produkt in deiner Bestellung haben."
+msgstr[1] "Du kannst nicht mehr als %s Produkte in deiner Bestellung haben."
+
+#: pretix_ticketbourse/utils.py:303
+#, python-format
+msgid ""
+"You need to have at least %(min)s items (or none) of the product %(product)s "
+"in your order."
+msgstr ""
+"Deine Bestellung muss das Produkt %(product)s muss mindestens %(min)s mal "
+"(oder gar nicht) enthalten."
+
+#: pretix_ticketbourse/utils.py:307
+#, python-format
+msgid ""
+"You cannot have more than %(max)s item of the product %(product)s in your "
+"order."
+msgid_plural ""
+"You cannot have more than %(max)s items of the product %(product)s in your "
+"order."
+msgstr[0] ""
+"Deine Bestellung kann das Produkt %(product)s nicht mehr als %(max)s mal "
+"enthalten."
+msgstr[1] ""
+"Deine Bestellung kann das Produkt %(product)s nicht mehr als %(max)s mal "
+"enthalten."
+
+#: pretix_ticketbourse/utils.py:317
+#, python-format
+msgid ""
+"You need to have at least %(min)s add-on from the category %(cat)s for the "
+"product %(base)s."
+msgid_plural ""
+"You need to have at least %(min)s add-ons from the category %(cat)s for the "
+"product %(base)s."
+msgstr[0] ""
+"Deine Bestellung muss für das Produkt %(base)s mindestens %(min)s "
+"Zusatzprodukt aus der Kategorie %(cat)s enthalten."
+msgstr[1] ""
+"Deine Bestellung muss für das Produkt %(base)s mindestens %(min)s "
+"Zusatzprodukte aus der Kategorie %(cat)s enthalten."
+
+#: pretix_ticketbourse/utils.py:323
+#, python-format
+msgid ""
+"You can have at most %(max)s add-on from the category %(cat)s for the "
+"product %(base)s."
+msgid_plural ""
+"You can have at most %(max)s add-ons from the category %(cat)s for the "
+"product %(base)s."
+msgstr[0] ""
+"Deine Bestellung kann für das Produkt %(base)s maximal %(max)s Zusatzprodukt "
+"aus der Kategorie %(cat)s enthalten."
+msgstr[1] ""
+"Deine Bestellung kann für das Produkt %(base)s maximal %(max)s "
+"Zusatzprodukte aus der Kategorie %(cat)s enthalten."
+
+#: pretix_ticketbourse/utils.py:336
+#, python-format
+msgid ""
+"You can have every add-ons from the category %(cat)s for the product "
+"%(base)s at most once."
+msgstr ""
+"Deine Bestellung kann für das Produkt %(base)s die Zusatzprodukt aus der "
+"Kategorie %(cat)s jeweils nur einmal enthalten."
+
+#: pretix_ticketbourse/views.py:118 pretix_ticketbourse/views.py:162
+msgid "You need to select at least one product."
+msgstr "Du musst mindestens ein Produkt auswählen."
+
+#: pretix_ticketbourse/views.py:381 pretix_ticketbourse/views.py:436
+#: pretix_ticketbourse/views.py:639 pretix_ticketbourse/views.py:692
+msgid "We could not process your request. Please try again later."
+msgstr ""
+"Wir konnten deine Anfrage leider nicht verarbeiten. Bitte versuche es später "
+"erneut."
+
+#: pretix_ticketbourse/views.py:491
+msgid "This field is required."
+msgstr "Dieses Feld ist erforderlich."
+
+#: pretix_ticketbourse/views.py:494
+#| msgid "Please wait 24 hours before you try again."
+msgid "Please wait 1 hour before you try again."
+msgstr "Bitte warte eine Stunde bevor du es erneut versuchst."
+
+#: pretix_ticketbourse/views.py:500 pretix_ticketbourse/views.py:505
+msgid "The Direct Code is invalid."
+msgstr "Der Direct Code ist ungültig."
+
+#: pretix_ticketbourse/views.py:511
+msgid "You do not have all tickets required for the entered Direct Code."
+msgstr "Du hast nicht alle für den eingegebenen Direct-Code nötigen Tickets."
+
+#: pretix_ticketbourse/views.py:547
+msgid "You need to select at least one ticket."
+msgstr "Du musst mindestens ein Ticket auswählen."
+
+#: pretix_ticketbourse/views.py:549
+#, python-format
+msgid ""
+"You cannot sell %(product)s without also selling all associated addon "
+"products."
+msgstr ""
+"Du kannst %(product)s nicht ohne alle zugehörigen Zusatzprodukte verkaufen."
+
+#: pretix_ticketbourse/views.py:552
+msgid "You need to select the right amount of tickets for the Direct Code."
+msgstr "Du musst die richtige Anzahl an Tickets für den Direct-Code auswählen."
+
+#~ msgid ""
+#~ "You might not be able to use any of the tickets in your order in the "
+#~ "meantime. You can, however, withdraw the request and restore your "
+#~ "original order."
+#~ msgstr ""
+#~ "Bis dahin kannst alle Tickets in dieser Bestellung möglicherweise nicht "
+#~ "nutzen. Du kannst allerdings deine Anfrage abbrechen und die "
+#~ "ursprüngliche Bestellung wiederherstellen."

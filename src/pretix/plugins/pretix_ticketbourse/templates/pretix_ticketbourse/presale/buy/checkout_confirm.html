@@ -1,0 +1,20 @@
+{% load i18n %}
+{% load eventurl %}
+{% load rich_text %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            {% trans "Ticket:Bourse" %}
+            <a href="{% eventurl request.event "presale:event.checkout" step="ticketbourse" cart_namespace=cart_namespace|default_if_none:"" %}" class="h6">
+                <span class="fa fa-edit" aria-hidden="true"></span>{% trans "Modify" %}
+            </a>
+        </h3>
+    </div>
+    <div class="panel-body">
+        {% if mode == "AUTO" %}
+        {{ event.settings.ticketbourse_buy_request_checkout_confirm_auto|rich_text }}
+        {% elif mode == "DIRECT" %}
+        {{ event.settings.ticketbourse_buy_request_checkout_confirm_direct|rich_text }}
+        {% endif %}
+    </div>
+</div>

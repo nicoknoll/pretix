@@ -1,0 +1,118 @@
+{% load i18n %}
+{% load static %}
+{% load eventurl %}
+{% load rich_text %}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            {% trans "Ticket:Bourse" %}
+        </h3>
+    </div>
+    <div class="panel-body">
+        {% if buy_request %}
+
+            {% if buy_request.effective_state == buy_request.States.REQUESTED %}
+                {% if buy_request.mode == buy_request.Modes.DIRECT %}
+                {{ event.settings.ticketbourse_buy_request_order_direct_requested|rich_text }}
+                <p>
+                    {% trans "Your direct code is:" %}
+                    <span data-toggle="tooltip" data-placement="bottom" title="{% trans "Click to copy" %}" class="copyable" data-destination="{{ order.code }}">
+                        <strong>{{ order.code }}</strong>
+                    </span>
+                </p>
+                {% elif buy_request.mode == buy_request.Modes.AUTO %}
+                {{ event.settings.ticketbourse_buy_request_order_auto_requested|rich_text }}
+                {% endif %}
+            {% elif buy_request.effective_state == buy_request.States.APPROVED %}
+            {{ event.settings.ticketbourse_buy_request_order_approved|rich_text }}
+            {% endif %}
+
+            {% if buy_request.can_change_mode and event.settings.ticketbourse_allow_edit and is_selling_active %}
+            <a class="btn btn-primary" href="{% eventurl order.event "plugins:pretix_ticketbourse:event.order.ticketbourse.buy" secret=order.secret order=order.code %}">
+            {% else %}
+            <a class="btn btn-primary disabled" href="#" disabled>
+            {% endif %}
+                {% trans "Change request" %}
+            </a>
+
+            {% if buy_request.extends_order %}
+                {% if buy_request.can_abort and event.settings.ticketbourse_allow_edit %}
+                <a class="btn btn-primary" href="{% eventurl order.event "plugins:pretix_ticketbourse:event.order.ticketbourse.cancel_buy" secret=order.secret order=order.code %}">
+                {% else %}
+                <a class="btn btn-primary disabled" href="#" disabled>
+                {% endif %}
+                    {% trans "Cancel request" %}
+                </a>
+            {% endif %}
+
+        {% elif sell_request %}
+
+            {% if sell_request.effective_state == sell_request.States.REQUESTED and sell_request.mode == sell_request.Modes.AUTO %}
+            {{ event.settings.ticketbourse_sell_request_order_auto_requested|rich_text }}
+            {% elif sell_request.effective_state == sell_request.States.REQUESTED and sell_request.mode == sell_request.Modes.DIRECT %}
+            <p>{% trans "Please wait until we processed your request." %}</p>
+            {% elif sell_request.effective_state == sell_request.States.BUY_REQUEST_APPROVED and sell_request.mode == sell_request.Modes.DIRECT %}
+            {{ event.settings.ticketbourse_sell_request_order_direct_requested|rich_text }}
+            {% endif %}
+
+            {% if sell_request.can_change and event.settings.ticketbourse_allow_edit and is_selling_active %}
+            <a class="btn btn-primary" href="{% eventurl order.event "plugins:pretix_ticketbourse:event.order.ticketbourse.sell" secret=order.secret order=order.code %}">
+            {% else %}
+            <a class="btn btn-primary disabled" href="#" disabled>
+            {% endif %}
+                {% trans "Change request" %}
+            </a>
+
+            {% if sell_request.can_abort and event.settings.ticketbourse_allow_edit %}
+            <a class="btn btn-secondary" href="{% eventurl order.event "plugins:pretix_ticketbourse:event.order.ticketbourse.cancel_sell" secret=order.secret order=order.code %}">
+            {% else %}
+            <a class="btn btn-secondary disabled" href="#" disabled>
+            {% endif %}
+                {% trans "Cancel request" %}
+            </a>
+
+        {% else %}
+
+            {% if latest_buy_request %}
+                {% if latest_buy_request.effective_state == latest_buy_request.States.FAILED %}
+                {{ event.settings.ticketbourse_buy_request_order_failed|rich_text }}
+                {% endif %}
+            {% elif latest_sell_request %}
+                {% if latest_sell_request.effective_state == latest_sell_request.States.COMPLETED %}
+                {{ event.settings.ticketbourse_sell_request_order_completed|rich_text }}
+                {% elif latest_sell_request.effective_state in latest_sell_request.FAILED_STATES %}
+                {{ event.settings.ticketbourse_sell_request_order_failed|rich_text }}
+                {% endif %}
+            {% endif %}
+
+            {{ event.settings.ticketbourse_order_info|rich_text }}
+
+            {% if sell_request.can_start %}
+                {% if event.settings.ticketbourse_allow_edit and is_selling_active %}
+                <a class="btn btn-primary" href="{% eventurl order.event "plugins:pretix_ticketbourse:event.order.ticketbourse.sell" secret=order.secret order=order.code %}">
+                {% else %}
+                <a class="btn btn-primary disabled" href="#" disabled>
+                {% endif %}
+                    {% trans "Sell tickets" %}
+                </a>
+            {% endif %}
+
+            {% if buy_request.can_start or buy_request.can_start_extended %}
+                {% if event.settings.ticketbourse_allow_edit and is_selling_active %}
+                <a class="btn btn-primary" href="{% eventurl order.event "plugins:pretix_ticketbourse:event.order.ticketbourse.buy" secret=order.secret order=order.code %}">
+                {% else %}
+                <a class="btn btn-primary disabled" href="#" disabled>
+                {% endif %}
+                    {% trans "Buy tickets" %}
+                </a>
+            </a>
+            {% endif %}
+
+        {% endif %}
+    </div>
+</div>
+
+{% if buy_request.effective_state == buy_request.States.REQUESTED and buy_request.mode == buy_request.Modes.DIRECT %}
+<script src="{% static "pretix_ticketbourse/order.js" %}"></script>
+{% endif %}

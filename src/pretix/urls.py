@@ -76,6 +76,7 @@ control_patterns = [
 debug_patterns = []
 if settings.DEBUG:
     base_patterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    base_patterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     try:
         import debug_toolbar
 

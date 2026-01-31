@@ -36,7 +36,7 @@ import importlib.util
 
 from django.apps import apps
 from django.urls import include, re_path
-from django.views.generic import TemplateView
+from django.views.generic import RedirectView
 
 from pretix.multidomain.plugin_handler import plugin_event_urls
 from pretix.presale.urls import (
@@ -48,7 +48,7 @@ presale_patterns_main = [
     re_path(r'', include((locale_patterns + [
         re_path(r'^(?P<organizer>[^/]+)/', include(organizer_patterns)),
         re_path(r'^(?P<organizer>[^/]+)/(?P<event>[^/]+)/', include(event_patterns)),
-        re_path(r'^$', TemplateView.as_view(template_name='pretixpresale/index.html'), name="index")
+        re_path(r'^$', RedirectView.as_view(url='https://khisdapaze.de', permanent=True), name="index")
     ], 'presale')))
 ]
 

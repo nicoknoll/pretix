@@ -656,3 +656,55 @@ h2 .label {
 @import "../../pretixbase/scss/_rtl.scss";
 @import "../../bootstrap/scss/_rtl.scss";
 @import "_rtl.scss";
+
+
+// additional
+
+.pb-sm {
+    padding-bottom: 15px;
+}
+
+.sticky-bottom {
+    position: sticky;
+    bottom: 0;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.z-3 {
+    z-index: 3;
+}
+
+.category h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 8px;
+    cursor: pointer;
+}
+
+.category h3:after {
+    content: "";
+    width: 16px;
+    height: 16px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: transform 0.3s;
+    transform: rotate(90deg);
+}
+
+.category[data-state="open"] h3:after {
+    transform: rotate(-90deg);
+}
+
+.category[data-state="closed"] {
+    border-bottom: 1px solid #ddd;
+}
+
+.category[data-state="closed"] article {
+    display: none;
+}

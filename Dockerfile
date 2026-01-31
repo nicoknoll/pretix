@@ -1,75 +1,80 @@
+# Use an official Python runtime as a parent image
 FROM python:3.11-bookworm
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-            build-essential \
-            gettext \
-            git \
-            libffi-dev \
-            libjpeg-dev \
-            libmemcached-dev \
-            libpq-dev \
-            libssl-dev \
-            libxml2-dev \
-            libxslt1-dev \
-            locales \
-            nginx \
-            python3-virtualenv \
-            python3-dev \
-            sudo \
-            supervisor \
-            libmaxminddb0 \
-            libmaxminddb-dev \
-            zlib1g-dev \
-            nodejs  \
-            npm && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* && \
-    dpkg-reconfigure locales &&  \
-    locale-gen C.UTF-8 &&  \
-    /usr/sbin/update-locale LANG=C.UTF-8 && \
-    mkdir /etc/pretix && \
-    mkdir /data && \
-    useradd -ms /bin/bash -d /pretix -u 15371 pretixuser && \
-    echo 'pretixuser ALL=(ALL) NOPASSWD:SETENV: /usr/bin/supervisord' >> /etc/sudoers && \
-    mkdir /static && \
-    mkdir /etc/supervisord
+# Set environment variables
+ENV PYTHONUNBUFFERED 1
+
+ARG PRETIX_DJANGO_SECRET
+ARG PRETIX_AWS_ACCESS_KEY_ID
+ARG PRETIX_AWS_S3_ENDPOINT_URL
+ARG PRETIX_AWS_SECRET_ACCESS_KEY
+ARG DEPLOYMENT_TYPE
+ARG NUM_THREADS
+ARG NUM_WORKERS
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    python3-dev \
+    python3-venv \
+    libffi-dev \
+    libssl-dev \
+    libxml2-dev \
+    libxslt1-dev \
+    libenchant-2-2 \
+    gettext \
+    git \
+    make \
+    cron \
+    build-essential
+
+# Install Node.js 20.x
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
+
+# Set work directory
+WORKDIR /app
+
+# Copy the current directory contents into the container
+COPY . /app/
 
 
-ENV LC_ALL=C.UTF-8 \
-    DJANGO_SETTINGS_MODULE=production_settings
+# Update pip first, BEFORE any pip install commands
+RUN pip3 install --upgrade pip wheel setuptools
 
-COPY deployment/docker/pretix.bash /usr/local/bin/pretix
-COPY deployment/docker/supervisord /etc/supervisord
-COPY deployment/docker/supervisord.all.conf /etc/supervisord.all.conf
-COPY deployment/docker/supervisord.web.conf /etc/supervisord.web.conf
-COPY deployment/docker/nginx.conf /etc/nginx/nginx.conf
-COPY deployment/docker/nginx-max-body-size.conf /etc/nginx/conf.d/nginx-max-body-size.conf
-COPY deployment/docker/production_settings.py /pretix/src/production_settings.py
-COPY pyproject.toml /pretix/pyproject.toml
-COPY _build /pretix/_build
-COPY src /pretix/src
+# Install Python dependencies and Gunicorn
+RUN pip3 install -e ".[dev]" gunicorn gevent
 
-RUN pip3 install -U \
-        pip \
-        setuptools \
-        wheel && \
-    cd /pretix && \
-    PRETIX_DOCKER_BUILD=TRUE pip3 install \
-        -e ".[memcached]" \
-        gunicorn django-extensions ipython && \
-    rm -rf ~/.cache/pip
+# Change to src directory as per documentation
+WORKDIR /app/src
 
-RUN chmod +x /usr/local/bin/pretix && \
-    rm /etc/nginx/sites-enabled/default && \
-    cd /pretix/src && \
-    rm -f pretix.cfg &&  \
-    mkdir -p data && \
-    chown -R pretixuser:pretixuser /pretix /data data &&  \
-    sudo -u pretixuser make production
+# Install JavaScript dependencies
+RUN make npminstall
 
-USER pretixuser
-VOLUME ["/etc/pretix", "/data"]
-EXPOSE 80
-ENTRYPOINT ["pretix"]
-CMD ["all"]
+# Compile language files
+RUN make localecompile
+
+# compress assets
+RUN python manage.py compress --force
+
+# Collect static files (only for main deployment)
+RUN if [ "$DEPLOYMENT_TYPE" = "main" ]; then \
+        python manage.py collectstatic --noinput --no-post-process; \
+    else \
+        echo "Skipping collectstatic for non-main deployment"; \
+    fi
+
+# Set work directory
+WORKDIR /app
+
+# Copy the current directory contents into the container
+COPY . /app/
+COPY ./run.sh /app/src
+
+# Change to src directory as per documentation
+WORKDIR /app/src
+
+# make our entrypoint.sh executable
+RUN chmod +x ./run.sh
+
+CMD ["./run.sh"]

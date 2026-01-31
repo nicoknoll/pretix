@@ -1,0 +1,149 @@
+{% extends "pretixcontrol/event/base.html" %}
+{% load i18n %}
+{% load bootstrap3 %}
+
+{% block title %}{% trans "Ticket bourse statistics" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Ticket bourse statistics" %}</h1>
+
+{% for result in results %}
+<h2>Group {{ forloop.counter }}</h2>
+
+<h3>Balance</h3>
+<p>
+Current balance ({{ result.tickets_sold }} tickets sold - {{ result.tickets_canceled }} canceled): {{ result.balance }}<br>
+Target balance: {{ result.target_balance }}<br>
+Tickets to be sold: {{ result.to_be_sold_for_balance }}<br>
+Tickets to be canceled: {{ result.to_be_canceled_for_balance }}<br>
+</p>
+
+<h3>Auto-approve</h3>
+<p>
+Tickets to be sold because of open sell requests ({{ result.available_auto_sell_requests }} open auto sell requests - {{ result.to_be_canceled_for_balance }} tickets to be canceled): {{ result.to_be_sold_for_auto }}<br>
+Tickets to be sold for balance (see above): {{ result.to_be_sold_for_balance }}<br>
+Total of tickets to be sold: {{ result.to_be_sold_total }}<br>
+Buy requests to be approved ({{ result.to_be_sold_total }} tickets to be sold - {{ result.pending_auto_buy_requests }} approved/pending auto buy requests): {{ result.to_be_approved_total }}<br>
+{% if result.oversell_limit >=  0 %}
+Limited by oversell limit ({{ result.pending_auto_buy_requests }} pending auto buy requests + {{ result.to_be_canceled_for_balance }} tickets to be canceled - {{ result.to_be_sold_for_balance }} tickets to be sold for balance/{{ result.oversell_limit }}): {{ result.to_be_approved_total_oversell_limited }}<br>
+{% endif %}
+Limited to available buy requests ({{ result.available_auto_buy_requests }}): {{ result.to_be_approved_available }}<br>
+<strong>Final number of buy requests to be approved:</strong> {{ result.to_be_approved }}
+</p>
+
+<h3>Auto-cancel</h3>
+<p>
+Tickets to be canceled for balance (see above): {{ result.to_be_canceled_for_balance }}<br>
+Limited to available sell requests ({{ result.available_auto_sell_requests }}): {{ result.to_be_canceled_available }}<br>
+{% if result.ratelimit >=  0 %}
+Ratelimited ({{ result.auto_canceled_last_hour }}/{{ result.ratelimit }} canceled in last hour): {{ result.to_be_canceled_available_ratelimited }}<br>
+{% endif %}
+<strong>Final number of sell requests to be completed (i.e. orders to be canceled):</strong> {{ result.to_be_canceled }}
+</p>
+<hr>
+{% endfor %}
+
+<h2>Overview</h2>
+<div class="table-responsive">
+    <table class="table table-hover table-quotas">
+        <thead>
+            <tr>
+                <th rowspan=2>State</th>
+                <th colspan=2>Direct</th>
+                <th colspan=2>Auto</th>
+            </tr>
+            <tr>
+                <th>Sells</th>
+                <th>Buys</th>
+                <th>Sells</th>
+                <th>Buys</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <th>Requested</th>
+                <td><a href="../orders/?ticketbourse-sell_request_mode=DIRECT&ticketbourse-sell_request_state=REQUESTED">{{ sell_DIRECT_REQUESTED_count }}</a></td>
+                <td><a href="../orders/?ticketbourse-buy_request_mode=DIRECT&ticketbourse-buy_request_state=REQUESTED">{{ buy_DIRECT_REQUESTED_count }}</a></td>
+                <td><a href="../orders/?ticketbourse-sell_request_mode=AUTO&ticketbourse-sell_request_state=REQUESTED">{{ sell_AUTO_REQUESTED_count }}</a></td>
+                <td><a href="../orders/?ticketbourse-buy_request_mode=AUTO&ticketbourse-buy_request_state=REQUESTED">{{ buy_AUTO_REQUESTED_count }}</a></td>
+            </tr>
+            <tr>
+                <th>Buy approved</th>
+                <td><a href="../orders/?ticketbourse-sell_request_mode=DIRECT&ticketbourse-sell_request_state=BUY_REQUEST_APPROVED">{{ sell_DIRECT_BUY_REQUEST_APPROVED_count }}</a></td>
+                <td><a href="../orders/?ticketbourse-buy_request_mode=DIRECT&ticketbourse-buy_request_state=APPROVED">{{ buy_DIRECT_APPROVED_count }}</a></td>
+                <td>n/a</td>
+                <td><a href="../orders/?ticketbourse-buy_request_mode=AUTO&ticketbourse-buy_request_state=APPROVED">{{ buy_AUTO_APPROVED_count }}</a></td>
+            </tr>
+            <tr>
+                <th>Paid</th>
+                <td>n/a</td>
+                <td><a href="../orders/?ticketbourse-buy_request_mode=DIRECT&ticketbourse-buy_request_state=PAID">{{ buy_DIRECT_PAID_count }}</a></td>
+                <td>n/a</td>
+                <td>n/a</td>
+            </tr>
+            <tr>
+                <th>Completed</th>
+                <td><a href="../orders/?ticketbourse-sell_request_mode=DIRECT&ticketbourse-sell_request_state=COMPLETED">{{ sell_DIRECT_COMPLETED_count }}</a></td>
+                <td><a href="../orders/?ticketbourse-buy_request_mode=DIRECT&ticketbourse-buy_request_state=COMPLETED">{{ buy_DIRECT_COMPLETED_count }}</a></td>
+                <td><a href="../orders/?ticketbourse-sell_request_mode=AUTO&ticketbourse-sell_request_state=COMPLETED">{{ sell_AUTO_COMPLETED_count }}</a></td>
+                <td><a href="../orders/?ticketbourse-buy_request_mode=AUTO&ticketbourse-buy_request_state=COMPLETED">{{ buy_AUTO_COMPLETED_count }}</a></td>
+            </tr>
+            <tr>
+                <th>Aborted</th>
+                <td><a href="../orders/?ticketbourse-sell_request_mode=DIRECT&ticketbourse-sell_request_state=ABORTED">{{ sell_DIRECT_ABORTED_count }}</a></td>
+                <td><a href="../orders/?ticketbourse-buy_request_mode=DIRECT&ticketbourse-buy_request_state=ABORTED">{{ buy_DIRECT_ABORTED_count }}</a></td>
+                <td><a href="../orders/?ticketbourse-sell_request_mode=AUTO&ticketbourse-sell_request_state=ABORTED">{{ sell_AUTO_ABORTED_count }}</a></td>
+                <td><a href="../orders/?ticketbourse-buy_request_mode=AUTO&ticketbourse-buy_request_state=ABORTED">{{ buy_AUTO_ABORTED_count }}</a></td>
+            </tr>
+            <tr>
+                <th>Failed</th>
+                <td><a href="../orders/?ticketbourse-sell_request_mode=DIRECT&ticketbourse-sell_request_state=any_failed">{{ sell_DIRECT_FAILED_count }}</a></td>
+                <td><a href="../orders/?ticketbourse-buy_request_mode=DIRECT&ticketbourse-buy_request_state=FAILED">{{ buy_DIRECT_FAILED_count }}</a></td>
+                <td><a href="../orders/?ticketbourse-sell_request_mode=AUTO&ticketbourse-sell_request_state=any_failed">{{ sell_AUTO_FAILED_count }}</a></td>
+                <td><a href="../orders/?ticketbourse-buy_request_mode=AUTO&ticketbourse-buy_request_state=FAILED">{{ buy_AUTO_FAILED_count }}</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<hr>
+
+<h2>Manually cancel/approve</h2>
+<form class="form" method="POST" action="{% url "plugins:pretix_ticketbourse:event.ticketbourse.manual" event=event.slug organizer=event.organizer.slug %}">
+    {% csrf_token %}
+    <div class="table-responsive form-inline">
+        <table class="table table-hover table-quotas">
+            <thead>
+                <tr>
+                    <th>Group</th>
+                    <th>Cancel</th>
+                    <th>Approve</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                <tr>
+                    <th>Group {{ forloop.counter }}</th>
+                    <td><input type="number" class="form-control" name="cancel_{{ forloop.counter0 }}" value="0"> + {{ result.to_be_canceled }} / {{ result.available_auto_sell_requests }}</td>
+                    <td><input type="number" class="form-control" name="approve_{{ forloop.counter0 }}" value="0"> + {{ result.to_be_approved }} / {{ result.available_auto_buy_requests }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <p>
+        The number after the plus sign is the ticket count to be automatically canceled/approved by the algorithm. The number after the slash is the total ticket count that is available to be canceled/approved.
+    </p>
+    <p>
+        This runs the regular ticket bourse algorithm, adding the entered cancellation and approval counts to the end results.
+        It approves/cancels automatic buy/sell requests regardless of whether automatic approval/cancelation is enabled.
+        It also ignores batching settings.
+        The manually added approval counts are not limited by the oversell limit.
+    </p>
+    <div class="form-group submit-group">
+        <button type="submit" class="btn btn-primary btn-save">
+            {% trans "Run ticket bourse" %}
+        </button>
+    </div>
+</form>
+{% endblock %}

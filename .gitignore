@@ -24,5 +24,4 @@ local/
 .project
 .pydevproject
 .DS_Store
-
-
+.venv

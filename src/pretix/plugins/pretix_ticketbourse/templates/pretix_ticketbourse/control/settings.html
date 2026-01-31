@@ -1,0 +1,84 @@
+{% extends "pretixcontrol/event/settings_base.html" %}
+{% load i18n %}
+{% load static %}
+{% load bootstrap3 %}
+
+{% block title %} {% trans "Ticket bourse settings" %} {% endblock %}
+
+{% block inside %}
+    <h1>{% trans "Ticket bourse settings" %}</h1>
+    <form action="" method="post" class="form-horizontal">
+        {% csrf_token %}
+        {% bootstrap_form_errors form %}
+        <div class="tabbed-form">
+            <fieldset>
+                <legend>{% trans "Settings" %}</legend>
+                {% for field in form %}
+                    {% if field.name in form.COMMON_FIELDS %}
+                    {% bootstrap_field field layout="horizontal" %}
+                    {% endif %}
+                {% endfor %}
+            </fieldset>
+            <fieldset>
+                <legend>{% trans "Product groups" %}</legend>
+                {% for field in form %}
+                    {% if field.name in form.ITEM_GROUP_FIELDS %}
+                    {% if field.name == 'ticketbourse_buy_items' %}
+                    <h4>{% trans "Group 1" %}</h4>
+                    {% elif field.name == 'ticketbourse_buy_items2' %}
+                    <h4>{% trans "Group 2" %}</h4>
+                    {% elif field.name == 'ticketbourse_buy_items3' %}
+                    <h4>{% trans "Group 3" %}</h4>
+                    {% endif %}
+                    {% bootstrap_field field layout="horizontal" %}
+                    {% endif %}
+                {% endfor %}
+            </fieldset>
+            <fieldset>
+                <legend>{% trans "Buyer texts" %}</legend>
+                {% for field in form %}
+                    {% if field.name in form.BUY_FIELDS %}
+                    {% if field.name == 'ticketbourse_buy_request_checkout_header' %}
+                    <h4>{% trans "Checkout step" %}</h4>
+                    {% elif field.name == 'ticketbourse_buy_request_checkout_confirm_direct' %}
+                    <h4>{% trans "Checkout confirmation" %}</h4>
+                    {% elif field.name == 'ticketbourse_buy_request_create_header' %}
+                    <h4>{% trans "Change/create request" %}</h4>
+                    {% elif field.name == 'ticketbourse_buy_request_order' %}
+                    <h4>{% trans "Order info box" %}</h4>
+                    {% elif field.name == 'ticketbourse_buy_request_approved_mail_subject' %}
+                    <h4>{% trans "Order approved e-mail" %}</h4>
+                    {% endif %}
+                    {% bootstrap_field field layout="horizontal" %}
+                    {% endif %}
+                {% endfor %}
+            </fieldset>
+
+            <fieldset>
+                <legend>{% trans "Seller texts" %}</legend>
+                {% for field in form %}
+                    {% if field.name in form.SELL_FIELDS %}
+                    {% if field.name == 'ticketbourse_sell_request_order' %}
+                    <h4>{% trans "Order info box" %}</h4>
+                    {% elif field.name == 'ticketbourse_sell_request_create_header' %}
+                    <h4>{% trans "Change/create request" %}</h4>
+                    {% elif field.name == 'ticketbourse_sell_request_create_confirm_direct' %}
+                    <h4>{% trans "Change/create request confirmation" %}</h4>
+                    {% elif field.name == 'ticketbourse_sell_request_completed_mail_subject' %}
+                    <h4>{% trans "Sell completed e-mail" %}</h4>
+                    {% elif field.name == 'ticketbourse_sell_request_failed_buyer_mail_subject' %}
+                    <h4>{% trans "Sell failed e-mail" %}</h4>
+                    {% endif %}
+                    {% bootstrap_field field layout="horizontal" %}
+                    {% endif %}
+                {% endfor %}
+            </fieldset>
+        </div>
+
+        <div class="form-group submit-group">
+            <button type="submit" class="btn btn-primary btn-save">
+                {% trans "Save" %}
+            </button>
+        </div>
+    </form>
+{% endblock %}

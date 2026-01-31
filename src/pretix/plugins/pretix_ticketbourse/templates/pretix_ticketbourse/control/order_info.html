@@ -1,0 +1,115 @@
+{% load i18n %}
+{% load eventurl %}
+{% load rich_text %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            {% trans "Ticket bourse requests" %}
+        </h3>
+    </div>
+    <ul class="list-group">
+        {% for request in requests %}
+        <li class="list-group-item">
+            {% if request.IS_BUY_REQUEST %}
+
+                <h5>{% trans "Buy Request" %}</h5>
+
+                {% if request.blocked and request.can_block %}
+                <div class="alert alert-danger">
+                    {% trans "This buy request is blocked!" %}
+                    {% if request.state == request.States.REQUESTED %}
+                    {% trans "Regardless of auto/direct sell requests, this order will not be approved unless it is unblocked." %}
+                    {% elif request.state == request.States.APPROVED and request.mode == request.Modes.DIRECT and request.direct_sell_requests.exists %}
+                    {% trans "If the order is paid, the seller's order will not be canceled until the buy request is unblocked." %}
+                    {% endif %}
+
+                </div>
+                {% endif %}
+
+                <b>{% trans "Mode:" %}</b> {{ request.get_mode_display }}<br>
+
+                {% if request.mode == request.Modes.DIRECT %}
+                    <b>{% trans "Buy from order(s):" %}</b>
+                    {% for sell_request in request.direct_sell_requests.all %}
+                    <a href="../{{ sell_request.order.code }}">{{ sell_request.order.code }}</a>
+                    {% endfor %}
+                    <br>
+                {% endif %}
+
+                <b>{% trans "State:" %}</b>
+                {{ request.get_state_display }}
+                {% if request.state != request.effective_state %}
+                    {% blocktrans trimmed with state=request.effective_state.label %}
+                    (effective state: {{ state }})
+                    {% endblocktrans %}
+                {% endif %}
+                <br>
+
+                <b>{% trans "Positions:" %}</b>
+                <ul>
+                    {% for position in request.positions.all %}
+                    <li>{{ position }}</li>
+                    {% endfor %}
+                </ul>
+                <br>
+
+                <form method="post" class="form">
+                    {% csrf_token %}
+
+                    {% if request.can_approve_order %}
+                    <a class="btn btn-default" href="{% url "plugins:pretix_ticketbourse:control.order.buy_approve_order" event=event.slug organizer=event.organizer.slug code=order.code %}">{% trans "Approve order" %}</a>
+                    {% endif %}
+                    {% if request.can_delete %}
+                    <a class="btn btn-default" href="{% url "plugins:pretix_ticketbourse:control.order.buy_delete_request" event=event.slug organizer=event.organizer.slug code=order.code %}">{% trans "Delete request" %}</a>
+                    {% endif %}
+
+                    {% if request.can_block and not request.blocked %}
+                        <button type="submit" formaction="{% url "plugins:pretix_ticketbourse:control.order.buy_block_request" event=event.slug organizer=event.organizer.slug code=order.code %}" class="btn btn-default">{% trans "Block request" %}</button>
+                    {% elif request.can_block and request.blocked %}
+                        <a class="btn btn-default" href="{% url "plugins:pretix_ticketbourse:control.order.buy_unblock_request" event=event.slug organizer=event.organizer.slug code=order.code %}">{% trans "Unblock request" %}</a>
+                    {% endif %}
+                </form>
+
+            {% elif request.IS_SELL_REQUEST %}
+
+                <h5>{% trans "Sell Request" %}</h5>
+                <b>{% trans "Mode:" %}</b> {{ request.get_mode_display }}<br>
+
+                {% if request.mode == request.Modes.DIRECT %}
+                    <b>{% trans "Sell to order:" %}</b>
+                    <a href="../{{ request.direct_buy_request.order.code }}">{{ request.direct_buy_request.order.code }}</a>
+                    {% if request.direct_buy_request.blocked and request.direct_buy_request.can_block %}
+                    <span class="label label-danger">{% trans "blocked" %}</span>
+                    {% endif %}
+                    <br>
+                {% endif %}
+
+                <b>{% trans "State:" %}</b>
+                {{ request.get_state_display }}
+                {% if request.state != request.effective_state %}
+                    {% blocktrans trimmed with state=request.effective_state.label %}
+                    (effective state: {{ state }})
+                    {% endblocktrans %}
+                {% endif %}
+                <br>
+
+                <b>{% trans "Positions:" %}</b>
+                <ul>
+                    {% for position in request.positions.all %}
+                    <li>{{ position }}</li>
+                    {% endfor %}
+                </ul>
+                <br>
+
+                {% if request.can_cancel_order %}
+                <a class="btn btn-default" href="{% url "plugins:pretix_ticketbourse:control.order.sell_cancel_order" event=event.slug organizer=event.organizer.slug code=order.code %}">{% trans "Cancel order" %}</a>
+                {% endif %}
+                {% if request.can_delete %}
+                <a class="btn btn-default" href="{% url "plugins:pretix_ticketbourse:control.order.sell_delete_request" event=event.slug organizer=event.organizer.slug code=order.code %}">{% trans "Delete request" %}</a>
+                {% endif %}
+
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>

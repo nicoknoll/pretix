@@ -345,7 +345,7 @@ function setup_basics(el) {
         }).on('click', function (event) {
             setCurrentTab(this);
         });
-        
+
         var firstTab = tabs.first().get(0);
         var lastTab = tabs.last().get(0);
         setCurrentTab(tabs.filter('[aria-selected=true]').get(0));
@@ -366,6 +366,16 @@ function get_label_text_for_id(id) {
     return $("label[for=" + id +"]").first().contents().filter(function () {
         return this.nodeType != Node.ELEMENT_NODE || !this.classList.contains("sr-only");
     }).text().trim();
+}
+
+function setup_collapsable_categories() {
+    $(function () {
+        $('.category h3').on('click', function (e) {
+            e.preventDefault();
+            const category = $(this).closest('section');
+            category.attr('data-state', category.attr('data-state') === 'open' ? 'closed' : 'open');
+        });
+    });
 }
 
 $(function () {
@@ -736,6 +746,8 @@ $(function () {
         // Prevent double-submit, see also https://github.com/pretix/pretix/issues/5836
         $(this).addClass("disabled");
     });
+
+    setup_collapsable_categories()
 });
 
 function copy_answers(elements, answers) {

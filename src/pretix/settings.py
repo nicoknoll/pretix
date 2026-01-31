@@ -148,6 +148,10 @@ if USE_DATABASE_TLS or USE_DATABASE_MTLS:
 
 db_disable_server_side_cursors = db_backend == 'postgresql' and config.getboolean('database', 'disable_server_side_cursors', fallback=False)
 
+if db_backend == 'postgresql' and config.has_option('database', 'pool_size'):
+    db_options['MAX_CONNS'] = config.getint('database', 'pool_size')
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.' + db_backend,
@@ -156,13 +160,14 @@ DATABASES = {
         'PASSWORD': config.get('database', 'password', fallback=''),
         'HOST': config.get('database', 'host', fallback=''),
         'PORT': config.get('database', 'port', fallback=''),
-        'CONN_MAX_AGE': 0 if db_backend == 'sqlite3' else 120,
-        'CONN_HEALTH_CHECKS': db_backend != 'sqlite3',  # Will only be used from Django 4.1 onwards
+        'CONN_MAX_AGE': 0 if db_backend == 'sqlite3' else config.getint('database', 'conn_max_age', fallback='120'),
+        'CONN_HEALTH_CHECKS': db_backend != 'sqlite3',
         'DISABLE_SERVER_SIDE_CURSORS': db_disable_server_side_cursors,
         'OPTIONS': db_options,
         'TEST': {}
     }
 }
+
 DATABASE_REPLICA = 'default'
 if config.has_section('replica'):
     DATABASE_REPLICA = 'replica'
@@ -179,9 +184,42 @@ if config.has_section('replica'):
     }
     DATABASE_ROUTERS = ['pretix.helpers.database.ReplicaRouter']
 
+# for development
 STATIC_URL = config.get('urls', 'static', fallback='/static/')
-
 MEDIA_URL = config.get('urls', 'media', fallback='/media/')
+
+
+# for production
+AWS_ACCESS_KEY_ID = config.get('aws', 'access_key_id', fallback='')
+AWS_SECRET_ACCESS_KEY = config.get('aws', 'secret_access_key', fallback='')
+AWS_QUERYSTRING_AUTH = False
+AWS_DEFAULT_ACL = 'public-read'
+AWS_S3_ENDPOINT_URL = config.get('aws', 's3_endpoint_url', fallback='')
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400'
+}
+
+if AWS_S3_ENDPOINT_URL:
+    AWS_STATIC_LOCATION = 'static'
+    STATIC_URL = f'{AWS_S3_ENDPOINT_URL}/{AWS_STATIC_LOCATION}/'
+    COMPRESS_URL = STATIC_URL
+
+    AWS_MEDIA_LOCATION = 'media'
+    PUBLIC_MEDIA_LOCATION = 'media'
+    MEDIA_URL = f'{AWS_S3_ENDPOINT_URL}/{AWS_MEDIA_LOCATION}/'
+
+    STORAGES = {
+        "default": {
+            "BACKEND": "pretix.storage_backends.MediaStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "pretix.storage_backends.CachedS3BotoStorage",
+        },
+        "compressor": {
+            "BACKEND": "pretix.storage_backends.CachedS3BotoStorage",
+        },
+    }
+
 
 PRETIX_INSTANCE_NAME = config.get('pretix', 'instance_name', fallback='pretix.de')
 PRETIX_REGISTRATION = config.getboolean('pretix', 'registration', fallback=False)
@@ -426,6 +464,7 @@ INSTALLED_APPS += [ # noqa
     'django_otp.plugins.otp_static',
     'hijack',
     'localflavor',
+    'storages',
 ]
 
 if db_backend == 'postgresql':
@@ -447,7 +486,6 @@ for entry_point in metadata.entry_points(group='pretix.plugin'):
 
 HIJACK_PERMISSION_CHECK = "hijack.permissions.superusers_and_staff"
 HIJACK_INSERT_BEFORE = None
-
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -724,6 +762,12 @@ if config.has_option('sentry', 'dsn') and not any(c in sys.argv for c in ('shell
     ignore_logger('pretix.base.tasks')
     ignore_logger('django.security.DisallowedHost')
     setup_custom_filters()
+
+CELERYD_PREFETCH_MULTIPLIER = 1
+CELERY_TASK_TIME_LIMIT = 300  # 5 minutes
+CELERY_TASK_SOFT_TIME_LIMIT = 240  # 4 minutes
+CELERY_ACKS_LATE = True
+CELERY_REJECT_ON_WORKER_LOST = True
 
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'

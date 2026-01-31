@@ -1,0 +1,44 @@
+#ticketbourse-position-select-table {
+    td {
+        border: none;
+    }
+    td:first-child  {
+        // Shrink checkbox column
+        width: 1px;
+    }
+    .addon-signifier {
+        display: inline-block;
+        padding-left: 10px;
+        font-weight: bold;
+    }
+}
+
+#ticketbourse-position-confirm-table {
+    tbody {
+        td {
+            border: none;
+        }
+    }
+    .addon-signifier {
+        display: inline-block;
+        padding-left: 10px;
+        font-weight: bold;
+    }
+    .dl-indented {
+        padding-left: 20px;
+        margin: 5px 0 0 0;
+    }
+}
+
+#ticketbourse-buy-product-table {
+    tbody {
+        td {
+            border: none;
+        }
+    }
+    .addon-signifier {
+        display: inline-block;
+        padding-left: 10px;
+        font-weight: bold;
+    }
+}

@@ -1,0 +1,72 @@
+{% extends "pretixpresale/event/checkout_base.html" %}
+{% load i18n %}
+{% load money %}
+{% load bootstrap3 %}
+{% load rich_text %}
+{% block inner %}
+
+{{ event.settings.ticketbourse_buy_request_checkout_header|rich_text }}
+
+<form method="post" class="form-horizontal" id="main-form">
+    {% csrf_token %}
+
+    <div class="panel-group" id="ticketbourse_accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <label class="radio">
+                        <input type="radio" name="ticketbourse_mode" value="DIRECT"
+                                data-parent="#ticketbourse_accordion" required
+                                {% if selected == "DIRECT" %}checked="checked"{% endif %}
+                                data-toggle="radiocollapse" data-target="#ticketbourse_direct"/>
+                        <strong>{{ event.settings.ticketbourse_buy_request_checkout_option_direct_label }}</strong>
+                    </label>
+                </h4>
+            </div>
+            <div id="ticketbourse_direct"
+                    class="panel-collapse collapsed {% if selected == "DIRECT" %}in{% endif %}">
+                <div class="panel-body form-horizontal">
+                    {{ event.settings.ticketbourse_buy_request_checkout_option_direct|rich_text }}
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <label class="radio">
+                        <input type="radio" name="ticketbourse_mode" value="AUTO"
+                                data-parent="#ticketbourse_accordion" required
+                                {% if selected == "AUTO" %}checked="checked"{% endif %}
+                                data-toggle="radiocollapse" data-target="#ticketbourse_auto"/>
+                        <strong>{{ event.settings.ticketbourse_buy_request_checkout_option_auto_label }}</strong>
+                    </label>
+                </h4>
+            </div>
+            <div id="ticketbourse_auto"
+                    class="panel-collapse collapsed {% if selected == "AUTO" %}in{% endif %}">
+                <div class="panel-body form-horizontal">
+                    {{ event.settings.ticketbourse_buy_request_checkout_option_auto|rich_text }}
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{{ event.settings.ticketbourse_buy_request_checkout_footer|rich_text }}
+
+<div class="row checkout-button-row">
+    <div class="col-md-4">
+        <a class="btn btn-block btn-default btn-lg"
+           href="{{ prev_url }}">
+            {% trans "Go back" %}
+        </a>
+    </div>
+    <div class="col-md-4 col-md-offset-4">
+        <button class="btn btn-block btn-primary btn-lg" form="main-form" type="submit">
+            {% trans "Continue" %}
+        </button>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+{% endblock %}

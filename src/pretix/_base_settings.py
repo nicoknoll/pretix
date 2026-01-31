@@ -64,6 +64,8 @@ INSTALLED_APPS = [
     'pretix.plugins.returnurl',
     'pretix.plugins.autocheckin',
     'pretix.plugins.webcheckin',
+    'pretix.plugins.pretix_ticket_transfer',
+    'pretix.plugins.pretix_ticketbourse',
     'django_countries',
     'oauth2_provider',
     'phonenumber_field',

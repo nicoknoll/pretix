@@ -1,0 +1,156 @@
+{% extends "pretixpresale/event/base.html" %}
+{% load i18n %}
+{% load eventurl %}
+{% load money %}
+{% load static %}
+{% block title %}{% trans "Ticket transfer" %}{% endblock %}
+{% block content %}
+
+<h2>
+    {% blocktrans trimmed with code=order.code %}
+        Ticket transfer for order: {{ code }}
+    {% endblocktrans %}
+</h2>
+
+<form class="form-horizontal" action="{% eventurl event "plugins:pretix_ticket_transfer:generate" secret=order.secret order=order.code %}" method="post">
+
+{% csrf_token %}
+
+{% if confirm %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">{% trans "Confirm ticket transfer" %}</h3>
+    </div>
+    <div class="panel-body">
+
+        {{message}}
+
+        <input type="hidden" name="email" value="{{ email }}" />
+        <input type="hidden" name="email_repeat" value="{{ email_repeat }}" />
+
+        <h4>{% trans "Recipient" %}:</h4>
+        <section><p>{{ email }}</p></section>
+
+        <h4>{% trans "Tickets" %}:</h4>
+        <div role="table" class="cart ttcart" aria-label="Selected tickets">
+            {% for i in pos %}
+                <input type="hidden" name="pos[]" value="{{i.id}}" />
+                <div role="rowgroup">
+                    <div role="row" class="row cart-row">
+                        <div role="cell" class="product">
+                            {{i.item.name}}
+                            {% if i.variation %}{{i.variation}}{% endif %}
+                            {% if i.attendee_name_cached %} - {{i.attendee_name_cached}}{% endif %}
+                        </div>
+                        <div role="cell" class="totalprice price">{{i.price_with_addons |money:event.currency }}</div>
+                    </div>
+                </div>
+            {% endfor %}
+            <div role="rowgroup">
+                <div role="row" class="row cart-row total">
+                    <div role="cell" class="product">{% trans "Total worth of ticket transfer" %}</div>
+                    <div role="cell" class="totalprice price">{{totalprice |money:event.currency }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row checkout-button-row">
+            <div class="col-md-4">
+                <button name="step2" value="1" type="submit" class="btn btn-block btn-primary">{% trans "Go back" %}</button>
+            </div>
+            <div class="col-md-4 col-md-offset-4">
+                <button name="confirm" value="1" type="submit" class="btn btn-block btn-primary">{% trans "Confirm ticket transfer" %}</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% else %}
+
+{% if message %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">{{ title }}</h3>
+    </div>
+    <div class="panel-body">
+        {{message}}
+    </div>
+</div>
+{% endif %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">{% trans "Select tickets" %}</h3>
+    </div>
+    <div class="panel-body">
+        {% for i in orderpositions %}
+            <div class="checkbox">
+                <label for="select_pos_{{i.id}}">
+                    <input id="select_pos_{{i.id}}" type="checkbox" name="pos[]" value="{{i.id}}" {% if i in pos %}checked{% endif %}/>
+                    #{{i.positionid}} {{i.item.name}}
+                    {% if i.variation %}{{i.variation}}{% endif %}
+                    {% if i.attendee_name_cached %} - {{i.attendee_name_cached}}{% endif %}
+                </label>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">{% trans "Choose recipient" %}</h3>
+    </div>
+    <div class="panel-body">
+
+        <div class="form-group required">
+            <label class="col-md-3 control-label" for="tt-email-0">
+                <i class="sr-only label-required">, {% trans "required" %}</i>
+                {% trans "Email" %}
+            </label>
+            <div class="col-md-9">
+                <input id="tt-email-0" class="form-control" type="email" name="email" value="{{email}}"
+                    autocomplete="section-contact email"
+                    title="{% trans "Please enter the email address of the person who should recieve the tickets." %}" required
+                    aria-describedby="help-for-tt-email-0" />
+                <p class="help-block" id="help-for-tt-email-0">
+                    {% trans "Please enter the email address of the person who should recieve the tickets." %}
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group required">
+            <label class="col-md-3 control-label" for="tt-email-1">
+                <i class="sr-only label-required">, {% trans "required" %}</i>
+                {% trans "Email (repeated)" %}
+            </label>
+            <div class="col-md-9">
+                <input id="tt-email-0" class="form-control" type="email" name="email_repeat" value="{{email_repeat}}"
+                    autocomplete="section-contact email"
+                    title="{% trans "Please enter the same email address again to make sure you typed it correctly." %}" required 
+                    aria-describedby="help-for-tt-email-1" />
+                <p class="help-block" id="help-for-tt-email-1">
+                    {% trans "Please enter the same email address again to make sure you typed it correctly." %}
+                </p>
+            </div>
+        </div>
+
+        <div class="row checkout-button-row">
+            <div class="col-md-4">
+                <a class="btn btn-block btn-primary" href="{% eventurl event "presale:event.order" secret=order.secret order=order.code %}">
+                    {% trans "Cancel" %}
+                </a>
+            </div>
+            <div class="col-md-4 col-md-offset-4">
+                <button type="submit" class="btn btn-block btn-primary">{% trans "Continue" %}</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endif %}
+
+</form>
+{% endblock %}
+

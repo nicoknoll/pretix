@@ -1,0 +1,310 @@
+{% extends "pretixpresale/event/base.html" %}
+{% load i18n %}
+{% load static %}
+{% load bootstrap3 %}
+{% load eventurl %}
+{% load rich_text %}
+{% load money %}
+{% load safelink %}
+{% load compress %}
+
+{% block title %}{% trans "Ticket:Bourse request" %}{% endblock %}
+{% block custom_header %}
+    {% compress css %}
+        <link type="text/x-scss" rel="stylesheet" href="{% static "pretix_ticketbourse/main.scss" %}" />
+    {% endcompress %}
+{% endblock %}
+{% block content %}
+<h2>
+    {% trans "Ticket:Bourse request" %}
+    <small>
+        {% blocktrans trimmed with current=wizard.steps.step1 total=wizard.steps.count %}
+        Step {{ current }} of {{ total }}
+        {% endblocktrans %}
+    </small>
+</h2>
+
+<form action="" method="post" class="form-horizontal">
+    {% csrf_token %}
+    {{ wizard.management_form }}
+    {% bootstrap_form_errors form layout="checkout" %}
+
+    {% if wizard.steps.current == 'mode' %}
+
+        {% for error in form.mode.errors %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endfor %}
+
+        {{ event.settings.ticketbourse_sell_request_create_header|rich_text }}
+        <div class="panel-group" id="ticketbourse_accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <label class="radio">
+                            <input type="radio" name="mode-mode" value="DIRECT"
+                                    data-parent="#ticketbourse_accordion"
+                                    required
+                                    {% if form.mode.value == "DIRECT" %}checked="checked"{% endif %}
+                                    data-toggle="radiocollapse" data-target="#ticketbourse_direct"/>
+                            <strong>{{ event.settings.ticketbourse_sell_request_create_option_direct_label }}</strong>
+                        </label>
+                    </h4>
+                </div>
+                <div id="ticketbourse_direct"
+                        class="panel-collapse collapsed {% if form.mode.value == "DIRECT" %}in{% endif %}">
+                    <div class="panel-body form-horizontal">
+                        {{ event.settings.ticketbourse_sell_request_create_option_direct|rich_text }}
+                        {% bootstrap_field form.direct_code layout="checkout" %}
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <label class="radio">
+                            <input type="radio" name="mode-mode" value="AUTO"
+                                    data-parent="#ticketbourse_accordion"
+                                    required
+                                    {% if form.mode.value == "AUTO" %}checked="checked"{% endif %}
+                                    data-toggle="radiocollapse" data-target="#ticketbourse_auto"/>
+                            <strong>{{ event.settings.ticketbourse_sell_request_create_option_auto_label }}</strong>
+                        </label>
+                    </h4>
+                </div>
+                <div id="ticketbourse_auto"
+                        class="panel-collapse collapsed {% if form.mode.value == "AUTO" %}in{% endif %}">
+                    <div class="panel-body form-horizontal">
+                        {{ event.settings.ticketbourse_sell_request_create_option_auto|rich_text }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ event.settings.ticketbourse_sell_request_create_footer|rich_text }}
+
+    {% elif wizard.steps.current == 'positions' %}
+
+        {% for error in form.positions.errors %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endfor %}
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    {% trans "Ticket to sell" %}
+                </h3>
+            </div>
+            <div class="panel-body">
+
+                <table id="ticketbourse-position-select-table" class="table">
+                    <tbody>
+                        {% with selectable_positions=form.positions.field.queryset.all %}
+                        {% for position in all_positions %}
+                        <tr>
+                            <td>
+                                {% if position in selectable_positions %}
+                                <input id="checkbox-positions-{{ position.id }}" class="ticketbourse-position-checkbox" type="checkbox" name="positions-positions" value="{{ position.id }}"{% if position.id|stringformat:"d" in form.positions.value %} checked{% endif %}{% if position.addon_to %} data-addonto="checkbox-positions-{{ position.addon_to.id }}"{% endif %}/>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <label for="checkbox-positions-{{ position.id }}">
+                                {% if position.addon_to %}
+                                    <span class="addon-signifier">+</span>
+                                {% endif %}
+                                <strong>{{ position.item.name }}</strong>
+                                {% if position.variation %}
+                                    – {{ position.variation }}
+                                {% endif %}
+                                </label>
+                                {% if position.item.ask_attendee_data and event.settings.attendee_names_asked %}
+                                    <dl class="dl-indented">
+                                        {% if position.item.ask_attendee_data %}
+                                            {% if event.settings.attendee_names_asked %}
+                                                <dt class="sr-only">
+                                                    {% trans "Attendee name" %}
+                                                </dt>
+                                                <dd class="toplevel{% if event.settings.attendee_addresses_asked and not event.settings.attendee_emails_asked %} blank-after{% endif %}">
+                                                    <span data-toggle="tooltip" title="{% trans "Attendee name" %}">
+                                                        {% if position.attendee_name %}{{ position.attendee_name }}{% else %}<em class="text-muted">{% trans "No attendee name provided" %}</em>{% endif %}
+                                                    </span>
+                                                </dd>
+                                            {% endif %}
+                                        {% endif %}
+                                    </dl>
+                                {% endif %}
+                            </td>
+                            <td class="text-right flip">
+                                {% if event.settings.display_net_prices %}
+                                    {{ position.net_price|money:event.currency }}
+                                {% else %}
+                                    {{ position.price|money:event.currency }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% endwith %}
+                    </tbody>
+                </table>
+
+                {% if form.required_item_groups %}
+                {% trans "Please select:" %}
+                <ul>
+                {% for group in form.required_item_groups %}
+                    <li>
+                        {{ group.count }}x
+                        {% for item in group.items %}
+                        {{ item }}{% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    </li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+
+            </div>
+        </div>
+
+    {% elif wizard.steps.current == 'refund' %}
+
+        <p>{% trans "Your bank details for the refund:" %}</p>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    {% trans "Refund" %}
+                </h3>
+            </div>
+            <div class="panel-body">
+                {% bootstrap_form form layout="checkout" %}
+            </div>
+        </div>
+
+    {% elif wizard.steps.current == 'confirm' %}
+
+        <p>{% trans "Please review the details below and confirm your request to sell your tickets." %}</p>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    {% trans "Sell mode" %}
+                </h3>
+            </div>
+            <div class="panel-body">
+                {% if selected_mode == 'AUTO' %}
+                {{ event.settings.ticketbourse_sell_request_create_confirm_auto|rich_text }}
+                {% elif selected_mode == 'DIRECT' %}
+                {{ event.settings.ticketbourse_sell_request_create_confirm_direct|rich_text }}
+                <p><strong>{% trans "Direct Code:" %}</strong> {{ direct_code }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    {% trans "Ticket to sell" %}
+                </h3>
+            </div>
+            <div class="panel-body">
+                <table id="ticketbourse-position-confirm-table" class="table">
+                    <tbody>
+                        {% for position in selected_positions %}
+                        <tr>
+                            <td>
+                                {% if position.addon_to and position.addon_to in selected_positions %}
+                                    <span class="addon-signifier">+</span>
+                                {% endif %}
+                                <strong>{{ position.item.name }}</strong>
+                                {% if position.variation %}
+                                    – {{ position.variation }}
+                                {% endif %}
+                                {% if position.item.ask_attendee_data and event.settings.attendee_names_asked or position.addon_to and position.addon_to not in selected_positions  %}
+                                    <dl class="dl-indented">
+                                        {% if position.addon_to and position.addon_to not in selected_positions %}
+                                            <dt class="sr-only">
+                                                {% trans "Relationship" %}
+                                            </dt>
+                                            <dd>
+                                                {% trans "Add-On to" %}
+                                                {{ position.addon_to.item }}
+                                                {% if position.addon_to.item.ask_attendee_data and event.settings.attendee_names_asked and position.addon_to.attendee_name %}
+                                                    (<span data-toggle="tooltip" title="{% trans "Attendee name" %}">{{ position.addon_to.attendee_name }}</span>)
+                                                {% endif %}
+                                            </dd>
+                                        {% endif %}
+                                        {% if position.item.ask_attendee_data and event.settings.attendee_names_asked %}
+                                            <dt class="sr-only">
+                                                {% trans "Attendee name" %}
+                                            </dt>
+                                            <dd>
+                                                <span data-toggle="tooltip" title="{% trans "Attendee name" %}">
+                                                    {% if position.attendee_name %}{{ position.attendee_name }}{% else %}<em class="text-muted">{% trans "No attendee name provided" %}</em>{% endif %}
+                                                </span>
+                                            </dd>
+                                        {% endif %}
+                                    </dl>
+                                {% endif %}
+                            </td>
+                            <td class="text-right flip">
+                                <strong>{{ position.price|money:event.currency }}</strong>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        {% if cancellation_fee %}
+                        <tr>
+                            <td>{% trans "Cancellation fee" %}</td>
+                            <td class="text-right flip">
+                                <strong>{{ cancellation_fee|money:event.currency }}</strong>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td><strong>{% trans "Refund amount" %}</strong></td>
+                            <td class="text-right flip">
+                                <strong>{{ refund_amount|money:event.currency }}</strong>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        {% if refund_confirm %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    {% trans "Refund" %}
+                </h3>
+            </div>
+            <div class="panel-body">
+                {{ refund_confirm }}
+            </div>
+        </div>
+        {% endif %}
+
+    {% endif %}
+
+    <div class="clearfix"></div>
+    <div class="row checkout-button-row">
+        <div class="col-md-4 col-sm-6">
+            <a class="btn btn-block btn-default btn-lg" href="{{ prev_url }}">
+                {% trans "Cancel" %}
+            </a>
+        </div>
+        <div class="col-md-4 col-md-offset-4 col-sm-6">
+            <button class="btn btn-block btn-primary btn-lg" type="submit">
+                {% if wizard.steps.next %}
+                {% trans "Continue" %}
+                {% else %}
+                {% trans "Confirm" %}
+                {% endif %}
+            </button>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</form>
+
+{% if wizard.steps.current == 'positions' %}
+<script src="{% static "pretix_ticketbourse/position_select.js" %}"></script>
+{% endif %}
+{% endblock %}

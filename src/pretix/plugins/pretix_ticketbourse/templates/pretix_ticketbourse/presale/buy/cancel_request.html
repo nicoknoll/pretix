@@ -1,0 +1,32 @@
+{% extends "pretixpresale/event/base.html" %}
+{% load i18n %}
+{% load bootstrap3 %}
+{% load eventurl %}
+{% load rich_text %}
+{% block title %}{% trans "Cancel Ticket:Bourse request" %}{% endblock %}
+{% block content %}
+<h2>{% trans "Cancel Ticket:Bourse request" %}</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% trans "Are you sure, you want to cancel your Ticket:Bourse request?" %}
+
+    <div class="row checkout-button-row">
+        <div class="col-md-4">
+            <a class="btn btn-block btn-default btn-lg"
+               href="{{ prev_url }}">
+                {% trans "No, take me back" %}
+            </a>
+        </div>
+        <div class="col-md-4 col-md-offset-4">
+            <button class="btn btn-block btn-danger btn-lg" type="submit">
+                {% trans "Yes, cancel request" %}
+            </button>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</form>
+
+{% endblock %}
+

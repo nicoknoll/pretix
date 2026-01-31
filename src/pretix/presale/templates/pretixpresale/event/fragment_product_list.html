@@ -9,7 +9,9 @@
 {% load rich_text %}
 {% for tup in items_by_category %}{% with category=tup.0 items=tup.1 form_prefix=tup.2 %}
     {% if category %}
-        <section class="item-category" aria-labelledby="{{ form_prefix }}category-{{ category.id }}"{% if category.description %} aria-describedby="{{ form_prefix }}category-info-{{ category.id }}"{% endif %}>
+        {% with is_collapsed=tup.0.description|findstr:"[collapsed]" %}
+
+        <section class="item-category" aria-labelledby="{{ form_prefix }}category-{{ category.id }}"{% if category.description %} aria-describedby="{{ form_prefix }}category-info-{{ category.id }}"{% endif %} class="category" data-state="{% if is_collapsed %}closed{% else %}open{% endif %}">
             <h{{ headline_level|default:3 }} class="h3" id="{{ form_prefix }}category-{{ category.id }}">{{ category.name }}
                 {% if category.subevent_name %}
                     <small class="text-muted"><i class="fa fa-calendar" aria-hidden="true"></i> {{ category.subevent_name }}</small>
@@ -23,10 +25,11 @@
                 {% endif %}
             </h{{ headline_level|default:3 }}>
             {% if category.description %}
-                <div id="{{ form_prefix }}category-info-{{ category.id }}">{{ category.description|localize|rich_text }}</div>
+                <div id="{{ form_prefix }}category-info-{{ category.id }}">{{ category.description|strip_collapsed|localize|rich_text }}</div>
             {% endif %}
+        {% endwith %}
     {% else %}
-        <section class="item-category" aria-labelledby="{{ form_prefix }}category-none">
+        <section class="item-category category" aria-labelledby="{{ form_prefix }}category-none" data-state="open">
             <h{{ headline_level|default:"3" }} id="{{ form_prefix }}category-none" class="h3 sr-only">{% trans "Uncategorized items" %}</h{{ headline_level|default:3 }}>
     {% endif %}
         {% for item in items %}

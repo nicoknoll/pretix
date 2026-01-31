@@ -1,0 +1,22 @@
+{% extends "pretixcontrol/event/base.html" %}
+{% load i18n %}
+{% load bootstrap3 %}
+{% load eventurl %}
+
+{% block title %}{% trans "TicketTransfer" %}{% endblock %}
+
+{% block content %}
+    <h2>{% trans "Transfers" %}</h2>
+
+    <div class="form-group">
+      <ul>
+	      <li><label>{% trans "sent" %}: 	</label>
+          <a href="../orders/?expert-status=&ticket_transfer-ticket_transfer_sent=23">{{ counter.sent }}	</a></li>
+	      <li><label>{% trans "recieved" %}: </label>
+          <a href="../orders/?expert-status=&ticket_transfer-ticket_transfer=1">{{ counter.start }}	</a></li>
+	      <li><label>{% trans "transfer accepted" %}: </label>
+          <a href="../orders/?expert-status=&ticket_transfer-ticket_transfer=2">{{ counter.done }}	</a></li>
+    </div>
+
+{% endblock %}
+

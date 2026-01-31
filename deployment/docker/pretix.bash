@@ -24,11 +24,11 @@ if [ "$AUTOMIGRATE" != "skip" ]; then
 fi
 
 if [ "$1" == "all" ]; then
-    exec sudo -E /usr/bin/supervisord -n -c /etc/supervisord.all.conf
+    exec /usr/bin/supervisord -n -c /etc/supervisord.all.conf
 fi
 
 if [ "$1" == "web" ]; then
-    exec sudo -E /usr/bin/supervisord -n -c /etc/supervisord.web.conf
+    exec /usr/bin/supervisord -n -c /etc/supervisord.web.conf
 fi
 
 if [ "$1" == "webworker" ]; then

@@ -1,0 +1,466 @@
+{% extends "pretixpresale/event/base.html" %}
+{% load i18n %}
+{% load bootstrap3 %}
+{% load eventurl %}
+{% load rich_text %}
+{% load money %}
+{% load safelink %}
+{% load compress %}
+{% load static %}
+
+{% block title %}{% trans "Ticket:Bourse request" %}{% endblock %}
+{% block custom_header %}
+    {% compress css %}
+        <link type="text/x-scss" rel="stylesheet" href="{% static "pretix_ticketbourse/main.scss" %}" />
+    {% endcompress %}
+{% endblock %}
+{% block content %}
+{% blocktrans asvar s_taxes %}taxes{% endblocktrans %}
+<h2>
+    {% trans "Ticket:Bourse request" %}
+    {% if wizard.steps.count > 1 %}
+    <small>
+        {% blocktrans trimmed with current=wizard.steps.step1 total=wizard.steps.count %}
+        Step {{ current }} of {{ total }}
+        {% endblocktrans %}
+    </small>
+    {% endif %}
+</h2>
+
+<main>
+<form action="" method="post" class="form-horizontal">{% csrf_token %}
+{{ wizard.management_form }}
+{% bootstrap_form_errors form layout="checkout" %}
+
+    {% if wizard.steps.current == 'mode' %}
+
+        {{ event.settings.ticketbourse_buy_request_create_header|rich_text }}
+
+        <div class="panel-group" id="ticketbourse_accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <label class="radio">
+                            <input type="radio" name="mode-mode" value="DIRECT"
+                                    data-parent="#ticketbourse_accordion" required
+                                    {% if form.mode.value == "DIRECT" %}checked="checked"{% endif %}
+                                    data-toggle="radiocollapse" data-target="#ticketbourse_direct"/>
+                            <strong>{{ event.settings.ticketbourse_buy_request_create_option_direct_label }}</strong>
+                        </label>
+                    </h4>
+                </div>
+                <div id="ticketbourse_direct"
+                        class="panel-collapse collapsed {% if form.mode.value == "DIRECT" %}in{% endif %}">
+                    <div class="panel-body form-horizontal">
+                        {{ event.settings.ticketbourse_buy_request_create_option_direct|rich_text }}
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <label class="radio">
+                            <input type="radio" name="mode-mode" value="AUTO"
+                                    data-parent="#ticketbourse_accordion" required
+                                    {% if form.mode.value == "AUTO" %}checked="checked"{% endif %}
+                                    data-toggle="radiocollapse" data-target="#ticketbourse_auto"/>
+                            <strong>{{ event.settings.ticketbourse_buy_request_create_option_auto_label }}</strong>
+                        </label>
+                    </h4>
+                </div>
+
+                <div id="ticketbourse_auto"
+                        class="panel-collapse collapsed {% if form.mode.value == "AUTO" %}in{% endif %}">
+                    <div class="panel-body form-horizontal">
+                        {{ event.settings.ticketbourse_buy_request_create_option_auto|rich_text }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{ event.settings.ticketbourse_buy_request_create_footer|rich_text }}
+
+    {% elif wizard.steps.current == 'items' %}
+
+        <p>{% trans "Please select the product you want to add to your order." %}</p>
+
+        {% if "addons" in wizard.steps.all %}
+            <p>{% trans "You can skip this step if you only want to add addon product to existing tickets." %}</p>
+        {% endif %}
+
+        {% include "pretixpresale/event/fragment_product_list.html" with ev=event itemnum=0 items_by_category=items_by_category allow_waitinglist=False %}
+
+    {% elif wizard.steps.current == 'addons' %}
+
+        <p>{% trans "For some of the products, you can choose additional options before you continue." %}</p>
+
+        {% for form in addon_formset %}
+            <div class="panel panel-default items">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <strong>{{ form.item.name }}</strong>
+                        {% if form.variation %}
+                            – {{ form.variation.value }}
+                        {% endif %}
+                    </h3>
+                </div>
+                <div class="panel-body addons">
+
+                    {% if form.pos.is_new %}
+                         <p><i>{% trans "New ticket" %}</i></p>
+                    {% else %}
+                         <dl>
+                         {% if form.item.ask_attendee_data %}
+                             {% if event.settings.attendee_names_asked %}
+                                 <dt>
+                                     {% trans "Attendee name" %}
+                                 </dt>
+                                 <dd>
+                                     {% if form.pos.attendee_name %}{{ form.pos.attendee_name }}{% else %}<em class="text-muted">{% trans "No attendee name provided" %}</em>{% endif %}
+                                 </dd>
+                             {% endif %}
+                         {% endif %}
+
+                         {% for q in form.pos.questions %}
+                             <dt>{{ q.question }}</dt>
+                             <dd>
+                                 {% if q.answer %}
+                                     {% if q.answer.file %}
+                                         <span class="fa fa-file" aria-hidden="true"></span>
+                                         <a href="{{ q.answer.frontend_file_url }}?token={% answer_token request q.answer %}">
+                                             {{ q.answer.file_name }}
+                                         </a>
+                                         {% if q.answer.is_image %}
+                                             <br>
+                                             <a href="{{ q.answer.frontend_file_url }}?token={% answer_token request q.answer %}" data-lightbox="order"
+                                                     class="answer-thumb">
+                                                 <img src="{{ q.answer.frontend_file_url }}?token={% answer_token request q.answer %}" alt="{% trans "The image you previously uploaded" %}">
+                                             </a>
+                                         {% endif %}
+                                     {% elif q.type == "M" %}
+                                         {{ q.answer|rich_text_snippet }}
+                                     {% else %}
+                                         {{ q.answer|linebreaksbr }}
+                                     {% endif %}
+                                 {% else %}
+                                     <em class="text-muted">{% trans "not answered" %}</em>
+                                 {% endif %}
+                             </dd>
+                         {% endfor %}
+                         </dl>
+                    {% endif %}
+
+                    {% include "pretixpresale/event/fragment_addon_choice.html" with form=form hide_prices=False %}
+                </div>
+            </div>
+        {% endfor %}
+
+    {% elif wizard.steps.current == 'questions' %}
+
+        <p>{% trans "Before we continue, we need you to answer some questions." %}</p>
+        <p class="required-legend" aria-hidden="true">
+            {% blocktrans trimmed %}
+                You need to fill all fields that are marked with <span>*</span> to continue.
+            {% endblocktrans %}
+        </p>
+
+        {% for pos, forms in formdict.items %}
+            <details class="panel panel-default" open>
+                <summary class="panel-heading">
+                    <h3 class="panel-title">
+                        <strong>{{ pos.item.name }}
+                        {% if pos.variation %}
+                            – {{ pos.variation }}
+                        {% endif %}</strong>
+                        {% if forloop.counter > 1 %}
+                            <span class="text-right flip">
+                                {% if event.settings.checkout_show_copy_answers_button %}
+                                    <button type="button" data-id="{{ forloop.counter0 }}" name="copy"
+                                            class="js-copy-answers btn btn-default btn-xs">{% trans "Copy answers from above" %}</button>
+                                {% endif %}
+                            </span>
+                        {% endif %}
+                    </h3>
+                </summary>
+                <div>
+                    <div class="panel-body questions-form">
+                        {% if pos.is_new %}
+                             <p><i>{% trans "New ticket" %}</i></p>
+                        {% else %}
+                             <dl>
+                             {% if pos.item.ask_attendee_data %}
+                                 {% if event.settings.attendee_names_asked %}
+                                     <dt>
+                                         {% trans "Attendee name" %}
+                                     </dt>
+                                     <dd>
+                                         {% if pos.attendee_name %}{{ pos.attendee_name }}{% else %}<em class="text-muted">{% trans "No attendee name provided" %}</em>{% endif %}
+                                     </dd>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% for q in pos.questions %}
+                                 <dt>{{ q.question }}</dt>
+                                 <dd>
+                                     {% if q.answer %}
+                                         {% if q.answer.file %}
+                                             <span class="fa fa-file" aria-hidden="true"></span>
+                                             <a href="{{ q.answer.frontend_file_url }}?token={% answer_token request q.answer %}">
+                                                 {{ q.answer.file_name }}
+                                             </a>
+                                             {% if q.answer.is_image %}
+                                                 <br>
+                                                 <a href="{{ q.answer.frontend_file_url }}?token={% answer_token request q.answer %}" data-lightbox="order"
+                                                         class="answer-thumb">
+                                                     <img src="{{ q.answer.frontend_file_url }}?token={% answer_token request q.answer %}" alt="{% trans "The image you previously uploaded" %}">
+                                                 </a>
+                                             {% endif %}
+                                         {% elif q.type == "M" %}
+                                             {{ q.answer|rich_text_snippet }}
+                                         {% else %}
+                                             {{ q.answer|linebreaksbr }}
+                                         {% endif %}
+                                     {% else %}
+                                         <em class="text-muted">{% trans "not answered" %}</em>
+                                     {% endif %}
+                                 </dd>
+                             {% endfor %}
+                             </dl>
+                        {% endif %}
+
+                        {% if event.settings.attendee_data_explanation_text and pos.item.ask_attendee_data %}
+                            {{ event.settings.attendee_data_explanation_text|rich_text }}
+                        {% endif %}
+                        {% if pos.seat %}
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    {% trans "Seat" %}
+                                </label>
+                                <div class="col-md-9 form-control-text">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="14" viewBox="0 0 4.7624999 3.7041668" class="svg-icon">
+                                        <path
+                                                d="m 1.9592032,1.8522629e-4 c -0.21468,0 -0.38861,0.17394000371 -0.38861,0.38861000371 0,0.21466 0.17393,0.38861 0.38861,0.38861 0.21468,0 0.3886001,-0.17395 0.3886001,-0.38861 0,-0.21467 -0.1739201,-0.38861000371 -0.3886001,-0.38861000371 z m 0.1049,0.84543000371 c -0.20823,-0.0326 -0.44367,0.12499 -0.39998,0.40462997 l 0.20361,1.01854 c 0.0306,0.15316 0.15301,0.28732 0.3483,0.28732 h 0.8376701 v 0.92708 c 0,0.29313 0.41187,0.29447 0.41187,0.005 v -1.19115 c 0,-0.14168 -0.0995,-0.29507 -0.29094,-0.29507 l -0.65578,-10e-4 -0.1757,-0.87644 C 2.3042533,0.95300523 2.1890432,0.86500523 2.0641032,0.84547523 Z m -0.58549,0.44906997 c -0.0946,-0.0134 -0.20202,0.0625 -0.17829,0.19172 l 0.18759,0.91054 c 0.0763,0.33956 0.36802,0.55914 0.66042,0.55914 h 0.6015201 c 0.21356,0 0.21448,-0.32143 -0.003,-0.32143 H 2.1954632 c -0.19911,0 -0.36364,-0.11898 -0.41341,-0.34107 l -0.17777,-0.87126 c -0.0165,-0.0794 -0.0688,-0.11963 -0.12557,-0.12764 z"/>
+                                    </svg>
+                                    {{ pos.seat }}
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if pos.addons_without_bundled %}
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    {% trans "Selected add-ons" %}
+                                </label>
+                                <div class="col-md-9 form-control-text">
+                                    <ul class="addon-list">
+                                        {% regroup pos.addons_without_bundled by item_and_variation as addons_by_itemvar %}
+                                        {% for group in addons_by_itemvar %}
+                                            <li>{% if group.list|length > 1 %}{{ group.list|length }}&times; {% endif %}{{ group.grouper.0.name }}{% if group.grouper.1 %} – {{ group.grouper.1.value }}{% endif %}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if pos.subevent %}
+                            <div class="form-group">
+                                <label class="col-md-3 control-label">
+                                    {% trans "Date" context "subevent" %}
+                                </label>
+                                <div class="col-md-9 form-control-text">
+                                    <ul class="addon-list">
+                                        {{ pos.subevent.name }} &middot; {{ pos.subevent.get_date_range_display_as_html }}
+                                        {% if pos.event.settings.show_times %}
+                                            <span data-time="{{ pos.subevent.date_from.isoformat }}" data-timezone="{{ request.event.timezone }}">
+                                                <span class="fa fa-clock-o" aria-hidden="true"></span>
+                                                {{ pos.subevent.date_from|date:"TIME_FORMAT" }}
+                                            </span>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% for form in forms %}
+                            {% if form.pos.item != pos.item %}
+                                {# Add-Ons #}
+                                <legend{% if profiles_data %} class="profile-add-on-legend"{% endif %}>
+                                    {% if form.show_copy_answers_to_addon_button and event.settings.checkout_show_copy_answers_button %}
+                                        <span class="pull-right flip">
+                                            <button type="button" data-id="{{ forloop.parentloop.counter0 }}" data-addonid="{{ forloop.counter0 }}" name="copy" class="js-copy-answers-addon btn btn-default btn-xs">{% trans "Copy answers" %}</button>
+                                        </span>
+                                    {% endif %}
+                                    + {{ form.pos.item.name }}{% if form.pos.variation %} – {{ form.pos.variation.value }}{% endif %}
+                                </legend>
+                            {% endif %}
+                            <div data-idx="{{ forloop.parentloop.counter0 }}" data-addonidx="{{ forloop.counter0 }}" class="profile-scope{% if form.pos.item != pos.item %}{% if profiles_data %} profile-add-on{% endif %}{% endif %}">
+                                {% if profiles_data %}
+                                <div class="form-group profile-select-container js-do-not-copy-answers">
+                                    <label class="col-md-3 control-label" for="profile-select-{{ forloop.parentloop.counter0 }}-{{ forloop.counter0 }}">{% trans "Auto-fill with profile" %}</label>
+                                    <div class="col-md-9">
+                                        <p class="profile-select-control">
+                                            <select class="profile-select form-control" id="profile-select-{{ forloop.parentloop.counter0 }}-{{ forloop.counter0 }}"></select>
+                                        </p>
+                                        <p class="help-block profile-desc" id="selected-profile-desc-{{ forloop.parentloop.counter0 }}-{{ forloop.counter0 }}"></p>
+                                        <p>
+                                            <button type="button" class="profile-apply btn btn-default"
+                                                aria-describedby="selected-profile-desc-{{ forloop.parentloop.counter0 }}-{{ forloop.counter0 }}"
+                                            ><i class="fa fa-address-card-o fa-lg" aria-hidden="true"></i>&nbsp; {% trans "Fill form" %}</button>
+                                        </p>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% bootstrap_form form layout="checkout" %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </details>
+        {% endfor %}
+
+    {% elif wizard.steps.current == 'confirm' %}
+
+        <p>{% trans "Please review the details below and confirm your request." %}</p>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    {% trans "Buy mode" %}
+                </h3>
+            </div>
+            <div class="panel-body">
+                {% if mode == "AUTO" %}
+                {{ event.settings.ticketbourse_buy_request_checkout_confirm_auto|rich_text }}
+                {% elif mode == "DIRECT" %}
+                {{ event.settings.ticketbourse_buy_request_checkout_confirm_direct|rich_text }}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    {% trans "Tickets to buy" %}
+                </h3>
+            </div>
+            <div class="panel-body">
+                <table id="ticketbourse-buy-product-table" class="table">
+                    <thead class="sr-only">
+                        <tr>
+                            <th>{% trans "Product" %}</th>
+                            <th class="text-right flip">{% trans "Price" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for position in new_positions %}
+                        <tr>
+                            <td>
+                                {% if position.addon_to and not position.addon_to.is_new %}
+                                {{ position.item }}
+                                <br><i>{% trans "Add-On to" %} {{ position.addon_to.item }}</i>
+                                {% elif not position.addon_to %}
+                                {{ position.item }}
+                                {% else %}
+                                <span class="addon-signifier">+</span>
+                                {{ position.item }}
+                                {% endif %}
+                            </td>
+                            <td class="text-right flip">
+                                {% if event.settings.display_net_prices %}
+                                    <strong>{{ position.price.net|money:event.currency }}</strong>
+                                    {% if position.price.rate and position.price.gross %}
+                                        <br />
+                                        <small>
+                                            {% blocktrans trimmed with rate=position.price.rate|floatformat:-2 taxname=position.tax_rule.name|default:s_taxes %}
+                                                <strong>plus</strong> {{ rate }}% {{ taxname }}
+                                            {% endblocktrans %}
+                                        </small>
+                                    {% endif %}
+                                {% else %}
+                                    <strong>{{ position.price.gross|money:event.currency }}</strong>
+                                    {% if position.price.rate and position.price.gross %}
+                                        <br />
+                                        <small>
+                                            {% blocktrans trimmed with rate=position.price.rate|floatformat:-2 taxname=position.tax_rule.name|default:s_taxes %}
+                                                incl. {{ rate }}% {{ taxname }}
+                                            {% endblocktrans %}
+                                        </small>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td><strong>{% trans "Total" %}</strong></td>
+                            <td class="text-right flip">
+                                <strong>{{ total_gross|money:event.currency }}</strong>
+                                {% if not event.settings.display_net_prices and total_tax %}
+                                    <br />
+                                    <small class="text-muted">
+                                        {% blocktrans trimmed with tax_sum=total_tax|money:event.currency %}
+                                            incl. {{ tax_sum }} taxes
+                                        {% endblocktrans %}
+                                    </small>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        {% if form.fields %}
+            <div class="panel panel-primary panel-confirm" role="group" aria-labelledby="confirm_heading">
+                <div class="panel-heading">
+                    <h3 class="panel-title" id="confirm_heading">
+                        {% trans "Confirmations" %}
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    {% for field in form %}
+                        <div class="checkbox{% if field.errors %} has-error{% endif %}">
+                            <label for="{{ field.id_for_label }}">
+                                <input type="checkbox" class="checkbox" name="{{ field.html_name }}" id="{{ field.id_for_label }}" required>
+                                {{ field.label }}
+                            </label>
+                        </div>
+                        {% if field.errors %}
+                            <div class="help-block">
+                                {% for error in field.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="alert alert-warning">
+            <strong>{% trans "The order will be given the status WAITING FOR APPROVAL until you receive an offer for the selected products."  %}</strong>
+            {% trans "Tickets that already have been paid for are still valid. You can also cancel your request at any time and restore your original order." %}
+        </div>
+    {% endif %}
+
+    <div class="clearfix"></div>
+    <div class="row checkout-button-row">
+        <div class="col-md-4 col-sm-6">
+            <a class="btn btn-block btn-default btn-lg" href="{{ prev_url }}">
+                {% trans "Cancel" %}
+            </a>
+        </div>
+        <div class="col-md-4 col-md-offset-4 col-sm-6">
+            <button class="btn btn-block btn-primary btn-lg" type="submit">
+                {% if wizard.steps.next %}
+                {% trans "Continue" %}
+                {% elif wizard.steps.current == 'confirm' %}
+                {% trans "Place binding order" %}
+                {% else %}
+                {% trans "Confirm" %}
+                {% endif %}
+            </button>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</form>
+</main>
+{% endblock %}

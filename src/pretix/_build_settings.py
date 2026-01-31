@@ -24,7 +24,10 @@
 This file contains settings that we need at wheel require time. All settings that we only need at runtime are set
 in settings.py.
 """
+import configparser
+
 from ._base_settings import *  # NOQA
+from .helpers.config import EnvOrParserConfig
 
 ENTROPY = {
     'order_code': 5,
@@ -47,3 +50,37 @@ HAS_MEMCACHED = False
 HAS_CELERY = False
 HAS_GEOIP = False
 SENTRY_ENABLED = False
+
+# for production
+_config = configparser.RawConfigParser()
+config = EnvOrParserConfig(_config)
+
+AWS_ACCESS_KEY_ID = config.get('aws', 'access_key_id', fallback='')
+AWS_SECRET_ACCESS_KEY = config.get('aws', 'secret_access_key', fallback='')
+AWS_QUERYSTRING_AUTH = False
+AWS_DEFAULT_ACL = 'public-read'
+AWS_S3_ENDPOINT_URL = config.get('aws', 's3_endpoint_url', fallback='')
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400'
+}
+
+if AWS_S3_ENDPOINT_URL:
+    AWS_STATIC_LOCATION = 'static'
+    STATIC_URL = f'{AWS_S3_ENDPOINT_URL}/{AWS_STATIC_LOCATION}/'
+    COMPRESS_URL = STATIC_URL
+
+    AWS_MEDIA_LOCATION = 'media'
+    PUBLIC_MEDIA_LOCATION = 'media'
+    MEDIA_URL = f'{AWS_S3_ENDPOINT_URL}/{AWS_MEDIA_LOCATION}/'
+
+    STORAGES = {
+        "default": {
+            "BACKEND": "pretix.storage_backends.MediaStorage",
+        },
+        "staticfiles": {
+            "BACKEND": "pretix.storage_backends.CachedS3BotoStorage",
+        },
+        "compressor": {
+            "BACKEND": "pretix.storage_backends.CachedS3BotoStorage",
+        },
+    }

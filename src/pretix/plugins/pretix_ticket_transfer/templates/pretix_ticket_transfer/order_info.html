@@ -1,0 +1,33 @@
+{% load i18n %}
+{% load eventurl %}
+{% load static %}
+
+<div class="panel panel-success">
+   <div class="panel-heading">
+       <h3 class="panel-title">{{ title }}</h3>
+   </div>
+   <div class="panel-body">
+    {% if pos %}
+       <p>
+         {{message}}
+       </p>
+
+      <form action="{% eventurl event "plugins:pretix_ticket_transfer:generate" secret=order.secret order=order.code %}" method="post">
+        {% csrf_token %}
+        <p class="text-right">
+          <button type="submit" class="btn btn-default">{% trans "Ticket transfer" %}</button>
+      </p>
+    </form>
+  {% endif %}
+
+  {% if log %}
+    <h4>{% trans "Transfered tickets" %}</h4>
+      <ul>
+        {% for i in log %}
+          <li>{{i}}</li>
+        {% endfor %}
+      </ul>
+     {% endif %}
+
+   </div>
+</div>

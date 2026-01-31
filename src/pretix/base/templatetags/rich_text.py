@@ -447,3 +447,15 @@ def rich_text_snippet(text: str, **kwargs):
     )
     body_md = markdown_compile(text, linker, snippet=True)
     return mark_safe(body_md)
+
+
+@register.filter
+def findstr(value, arg):
+    """Returns True if the argument is found in the value"""
+    return arg in str(value)
+
+
+@register.filter
+def strip_collapsed(value):
+    """Removes the [collapsed] marker from the text"""
+    return str(value).replace("[collapsed]", "")
