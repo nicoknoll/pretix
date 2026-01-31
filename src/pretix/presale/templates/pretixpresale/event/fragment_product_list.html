@@ -9,9 +9,9 @@
 {% load rich_text %}
 {% for tup in items_by_category %}{% with category=tup.0 items=tup.1 form_prefix=tup.2 %}
     {% if category %}
-        {% with is_collapsed=tup.0.description|findstr:"[collapsed]" %}
+        {% with is_collapsed=category.description|findstr:"[collapsed]" %}
 
-        <section class="item-category" aria-labelledby="{{ form_prefix }}category-{{ category.id }}"{% if category.description %} aria-describedby="{{ form_prefix }}category-info-{{ category.id }}"{% endif %} class="category" data-state="{% if is_collapsed %}closed{% else %}open{% endif %}">
+        <section class="item-category category" aria-labelledby="{{ form_prefix }}category-{{ category.id }}"{% if category.description %} aria-describedby="{{ form_prefix }}category-info-{{ category.id }}"{% endif %} class="category" data-state="{% if is_collapsed %}closed{% else %}open{% endif %}">
             <h{{ headline_level|default:3 }} class="h3" id="{{ form_prefix }}category-{{ category.id }}">{{ category.name }}
                 {% if category.subevent_name %}
                     <small class="text-muted"><i class="fa fa-calendar" aria-hidden="true"></i> {{ category.subevent_name }}</small>
