@@ -26,12 +26,12 @@ classifiers = [
 ]
 
 dependencies = [
-  "arabic-reshaper==3.0.0",  # Support for Arabic in reportlab
+  "arabic-reshaper==3.0.0", # Support for Arabic in reportlab
   "babel",
   "BeautifulSoup4==4.14.*",
   "bleach==6.3.*",
-    "boto3==1.35.*",
-    "celery==5.6.*",
+  "boto3==1.35.*",
+  "celery==5.6.*",
   "chardet==5.2.*",
   "cryptography>=44.0.0",
   "css-inline==0.19.*",
@@ -56,18 +56,18 @@ dependencies = [
   "django-redis==6.0.*",
   "django-scopes==2.0.*",
   "django-statici18n==2.6.*",
-    "django-storages==1.14.*",
-    "djangorestframework==3.16.*",
+  "django-storages==1.14.*",
+  "djangorestframework==3.16.*",
   "dnspython==2.8.*",
   "drf_ujson2==1.7.*",
   "geoip2==5.*",
-  "importlib_metadata==8.*",  # Polyfill, we can probably drop this once we require Python 3.10+
+  "importlib_metadata==8.*", # Polyfill, we can probably drop this once we require Python 3.10+
   "isoweek",
   "jsonschema",
   "kombu==5.6.*",
   "libsass==0.23.*",
   "lxml",
-  "markdown==3.10.1",  # 3.3.5 requires importlib-metadata>=4.4, but django-bootstrap3 requires importlib-metadata<3.
+  "markdown==3.10.1", # 3.3.5 requires importlib-metadata>=4.4, but django-bootstrap3 requires importlib-metadata<3.
   # We can upgrade markdown again once django-bootstrap3 upgrades or once we drop Python 3.6 and 3.7
   "mt-940==4.30.*",
   "oauthlib==3.3.*",
@@ -79,14 +79,14 @@ dependencies = [
   "phonenumberslite==9.0.*",
   "Pillow==12.1.*",
   "pretix-plugin-build",
-    "pretix-mandatory-product==1.3.*",
-    "protobuf==6.33.*",
+  "pretix-mandatory-product==1.3.*",
+  "protobuf==6.33.*",
   "psycopg2-binary",
   "pycountry",
   "pycparser==3.0",
   "pycryptodome==3.23.*",
   "pypdf==6.5.*",
-  "python-bidi==0.6.*",  # Support for Arabic in reportlab
+  "python-bidi==0.6.*", # Support for Arabic in reportlab
   "python-dateutil==2.9.*",
   "pytz",
   "pytz-deprecation-shim==0.1.*",
@@ -104,7 +104,8 @@ dependencies = [
   "ua-parser==1.0.*",
   "vobject==0.9.*",
   "webauthn==2.7.*",
-  "zeep==4.3.*"
+  "zeep==4.3.*",
+  "pretix-enablebanking>=1.0.0",
 ]
 
 [project.optional-dependencies]
