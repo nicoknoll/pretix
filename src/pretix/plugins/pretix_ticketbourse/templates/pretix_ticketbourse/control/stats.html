@@ -2,10 +2,10 @@
 {% load i18n %}
 {% load bootstrap3 %}
 
-{% block title %}{% trans "Ticket bourse statistics" %}{% endblock %}
+{% block title %}{% trans "Ticket Exchange statistics" %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Ticket bourse statistics" %}</h1>
+<h1>{% trans "Ticket Exchange statistics" %}</h1>
 
 {% for result in results %}
 <h2>Group {{ forloop.counter }}</h2>
@@ -135,14 +135,14 @@ Ratelimited ({{ result.auto_canceled_last_hour }}/{{ result.ratelimit }} cancele
         The number after the plus sign is the ticket count to be automatically canceled/approved by the algorithm. The number after the slash is the total ticket count that is available to be canceled/approved.
     </p>
     <p>
-        This runs the regular ticket bourse algorithm, adding the entered cancellation and approval counts to the end results.
+        This runs the regular ticket exchange algorithm, adding the entered cancellation and approval counts to the end results.
         It approves/cancels automatic buy/sell requests regardless of whether automatic approval/cancelation is enabled.
         It also ignores batching settings.
         The manually added approval counts are not limited by the oversell limit.
     </p>
     <div class="form-group submit-group">
         <button type="submit" class="btn btn-primary btn-save">
-            {% trans "Run ticket bourse" %}
+            {% trans "Run ticket exchange" %}
         </button>
     </div>
 </form>

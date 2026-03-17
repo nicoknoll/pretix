@@ -109,7 +109,7 @@ COMMON_SETTINGS = {
             'label': _('No request or request failed'),
         },
         'default': LazyI18nString.from_gettext(gettext_noop('''\
-To buy or sell a ticket on the Ticket:Bourse, you need to create a request with one \
+To buy or sell a ticket on the Ticket Exchange, you need to create a request with one \
 of the buttons below.'''))
     },
 
@@ -152,7 +152,7 @@ for index, suffix in enumerate(ITEM_GROUP_SUFFIXES):
         'form_class': forms.IntegerField,
         'form_kwargs': {
             'label': _('Target sell/buy balance'),
-            'help_text': _('Caution: Changes to this value can immediatly cancel or approve many orders! Positive values cause the ticket bourse to sell extra tickets, negative values cause it to buy back tickets.'),
+            'help_text': _('Caution: Changes to this value can immediatly cancel or approve many orders! Positive values cause the ticket exchange to sell extra tickets, negative values cause it to buy back tickets.'),
         },
         'default': '0',
     }
@@ -491,7 +491,7 @@ person or you want to take part in the automatic ticket resale:'''))
         'default': LazyI18nString.from_gettext(gettext_noop('''\
 Select this option, if you want to sell your ticket to a specific person.
 
-The person you want to sell your ticket to must create a Ticket:Bourse order \
+The person you want to sell your ticket to must create a Ticket Exchange order \
 first and select the option for direct resale. The person will get a direct \
 code that you need to enter here to start the transaction:'''))
     },
@@ -585,7 +585,7 @@ Your {event} team''')),
             'label': _('Subject'),
         },
         'placeholders': ['event', 'order'],
-        'default': LazyI18nString.from_gettext(gettext_noop('Ticket:bourse request failed: {code}')),
+        'default': LazyI18nString.from_gettext(gettext_noop('Ticket Exchange request failed: {code}')),
     },
     'ticketbourse_sell_request_failed_buyer_mail_text': {
         'type': LazyI18nString,
@@ -631,6 +631,8 @@ class TicketBourseSettingsForm(SettingsForm):
                     kwargs = kwargs(self.event)
                 kwargs.setdefault('required', False)
                 self.fields[key] = args['form_class'](**kwargs)
+                if isinstance(self.fields[key], I18nFormField):
+                    self.fields[key].widget.enabled_locales = self.locales
                 if 'placeholders' in args:
                     # From src/pretix/control/forms/event.py
                     phs = [

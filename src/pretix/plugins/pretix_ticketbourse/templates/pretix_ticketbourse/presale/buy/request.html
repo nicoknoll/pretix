@@ -8,7 +8,7 @@
 {% load compress %}
 {% load static %}
 
-{% block title %}{% trans "Ticket:Bourse request" %}{% endblock %}
+{% block title %}{% trans "Ticket Exchange request" %}{% endblock %}
 {% block custom_header %}
     {% compress css %}
         <link type="text/x-scss" rel="stylesheet" href="{% static "pretix_ticketbourse/main.scss" %}" />
@@ -17,7 +17,7 @@
 {% block content %}
 {% blocktrans asvar s_taxes %}taxes{% endblocktrans %}
 <h2>
-    {% trans "Ticket:Bourse request" %}
+    {% trans "Ticket Exchange request" %}
     {% if wizard.steps.count > 1 %}
     <small>
         {% blocktrans trimmed with current=wizard.steps.step1 total=wizard.steps.count %}

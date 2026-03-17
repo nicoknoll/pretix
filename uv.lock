@@ -2210,6 +2210,7 @@ dependencies = [
     { name = "phonenumberslite" },
     { name = "pillow" },
     { name = "pretix-enablebanking" },
+    { name = "pretix-event-css-js" },
     { name = "pretix-mandatory-product" },
     { name = "pretix-plugin-build" },
     { name = "protobuf" },
@@ -2327,6 +2328,7 @@ requires-dist = [
     { name = "pillow", specifier = "==12.1.*" },
     { name = "potypo", marker = "extra == 'dev'" },
     { name = "pretix-enablebanking", specifier = ">=1.0.0" },
+    { name = "pretix-event-css-js", editable = "../pretix-event-css-js" },
     { name = "pretix-mandatory-product", specifier = "==1.3.*" },
     { name = "pretix-plugin-build" },
     { name = "protobuf", specifier = "==6.33.*" },
@@ -2379,6 +2381,17 @@ sdist = { url = "https://files.pythonhosted.org/packages/ea/88/34c6dfa3cd565e735
 wheels = [
     { url = "https://files.pythonhosted.org/packages/e7/f6/5961990c22d18c5aaab7ba1841d387f212babef1be1eaf4b44be3c53e4e5/pretix_enablebanking-1.0.0-py3-none-any.whl", hash = "sha256:c4214405b3cf7c204046dd7a99267893f8e51188357daffeebd0c36a44ebe28a", size = 27191 },
 ]
+
+[[package]]
+name = "pretix-event-css-js"
+version = "1.0.0"
+source = { editable = "../pretix-event-css-js" }
+dependencies = [
+    { name = "pretix" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "pretix", specifier = ">=2.7.0" }]
 
 [[package]]
 name = "pretix-mandatory-product"

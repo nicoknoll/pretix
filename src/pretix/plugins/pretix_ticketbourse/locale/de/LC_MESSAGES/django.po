@@ -6,9 +6,8 @@ msgstr ""
 "POT-Creation-Date: 2026-03-14 18:11+0000\n"
 "PO-Revision-Date: 2023-11-28 15:36+0000\n"
 "Last-Translator: Raphael Michel <michel@rami.io>\n"
-"Language-Team: German (informal) <https://translate.pretix.eu/projects/"
-"pretix/pretix/de_Informal/>\n"
-"Language: de_Informal\n"
+"Language-Team: German\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,7 +25,7 @@ msgstr "Ticketbörse"
 
 #: pretix/plugins/pretix_ticketbourse/apps.py:18
 msgid "Allow customers to resell their tickets"
-msgstr "Ermögliche Kunden ihre Tickets weiterzuverkaufen"
+msgstr "Ermöglichen Sie Kunden ihre Tickets weiterzuverkaufen"
 
 #: pretix/plugins/pretix_ticketbourse/models.py:37
 #: pretix/plugins/pretix_ticketbourse/models.py:400
@@ -180,8 +179,8 @@ msgid ""
 "To buy or sell a ticket on the Ticket Exchange, you need to create a request "
 "with one of the buttons below."
 msgstr ""
-"Um über die Ticketbörse ein Ticket zu kaufen oder zu verkaufen, erstelle "
-"bitte eine Anfrage über einen der folgenden Buttons."
+"Um über die Ticketbörse ein Ticket zu kaufen oder zu verkaufen, erstellen "
+"Sie bitte eine Anfrage über einen der folgenden Buttons."
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:126
 msgid "Items allowed to buy"
@@ -244,8 +243,8 @@ msgid ""
 "Please select whether you want to buy a ticket directly from a specific "
 "person or you want to take part in the automatic ticket resale:"
 msgstr ""
-"Bitte wähle aus, ob du ein Ticket direkt von einer bestimmten Person kaufen "
-"oder am automatischen Weiterverkauf teilnehmen möchtest:"
+"Bitte wählen Sie aus, ob Sie ein Ticket direkt von einer bestimmten Person "
+"kaufen oder am automatischen Weiterverkauf teilnehmen möchten:"
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:188
 #: pretix/plugins/pretix_ticketbourse/settings.py:278
@@ -273,11 +272,11 @@ msgid ""
 "After placing your order, you well get a direct code. The person you want to "
 "buy a ticket from has to enter this code to start the transaction."
 msgstr ""
-"Wähle diese Option, wenn du ein Ticket von einer bestimmten Person kaufen "
-"möchtest.\n"
+"Wählen Sie diese Option, wenn Sie ein Ticket von einer bestimmten Person "
+"kaufen möchten.\n"
 "\n"
-"Nach Abschluss deiner Bestellung erhältst du einen Direct Code. Die Person, "
-"von der du das Ticket kaufen möchtest, muss diesen Code eingeben, um die "
+"Nach Abschluss Ihrer Bestellung erhalten Sie einen Direct Code. Die Person, "
+"von der Sie das Ticket kaufen möchten, muss diesen Code eingeben, um die "
 "Transaktion zu starten."
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:210
@@ -306,11 +305,11 @@ msgid ""
 "Whenever someone offers to sell a ticket, your order has the chance to be "
 "selected at random. You will be notified in this case."
 msgstr ""
-"Wähle diese Option, wenn du ein Ticket von einer beliebigen Person kaufen "
-"möchtest.\n"
+"Wählen Sie diese Option, wenn Sie ein Ticket von einer beliebigen Person "
+"kaufen möchten.\n"
 "\n"
-"Immer wenn jemand ein Ticket zum Verkauf anbietet, hat deine Bestellung die "
-"Chance, zufällig ausgewählt zu werden. Du wirst in diesem Fall "
+"Immer wenn jemand ein Ticket zum Verkauf anbietet, hat Ihre Bestellung die "
+"Chance, zufällig ausgewählt zu werden. Sie werden in diesem Fall "
 "benachrichtigt."
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:232
@@ -325,7 +324,7 @@ msgid ""
 "Note that you can change your decision afterwards until you have been "
 "offered a ticket."
 msgstr ""
-"Du kannst deine Entscheidung im Nachhinein noch ändern, bis dir ein Ticket "
+"Sie können Ihre Entscheidung im Nachhinein noch ändern, bis Ihnen ein Ticket "
 "angeboten wurde."
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:245
@@ -336,7 +335,7 @@ msgstr "\"Direkt\" ausgewählt"
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:247
 msgid "You selected to buy a ticket directly."
-msgstr "Du hast gewählt, ein Ticket direkt zu kaufen."
+msgstr "Sie haben gewählt, ein Ticket direkt zu kaufen."
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:255
 #: pretix/plugins/pretix_ticketbourse/settings.py:348
@@ -346,7 +345,7 @@ msgstr "\"Automatisch\" ausgewählt"
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:257
 msgid "You selected to buy a ticket automatically."
-msgstr "Du hast gewählt, ein Ticket automatisch zu kaufen."
+msgstr "Sie haben gewählt, ein Ticket automatisch zu kaufen."
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:289
 msgid ""
@@ -355,11 +354,11 @@ msgid ""
 "You well get a direct code. The person you want to buy a ticket from has to "
 "enter this code to start the transaction."
 msgstr ""
-"Wähle diese Option, wenn du ein Ticket von einer bestimmten Person kaufen "
-"möchtest.\n"
+"Wählen Sie diese Option, wenn Sie ein Ticket von einer bestimmten Person "
+"kaufen möchten.\n"
 "\n"
-"Du erhältst einen Direct Code. Die Person, von der du das Ticket kaufen "
-"möchtest, muss diesen Code eingeben, um die Transaktion zu starten."
+"Sie erhalten einen Direct Code. Die Person, von der Sie das Ticket kaufen "
+"möchten, muss diesen Code eingeben, um die Transaktion zu starten."
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:337
 msgid ""
@@ -368,11 +367,11 @@ msgid ""
 "has to create a direct sell request and enter your direct code. You will be "
 "notified, when your order has been approved and can be payed."
 msgstr ""
-"Du hast ausgewählt, dass du ein Ticket direkt kaufen möchtest. Kopiere den "
-"Direct Code unten und sende ihn an die Person, von der du das Ticket kaufen "
-"möchtest. Die Person muss eine direkte Verkaufsanfrage erstellen und deinen "
-"Direct Code eingeben. Du wirst benachrichtigt, wenn deine Bestellung "
-"freigegeben wurde und bezahlt werden kann."
+"Sie haben ausgewählt, dass Sie ein Ticket direkt kaufen möchten. Kopieren "
+"Sie den Direct Code unten und senden Sie ihn an die Person, von der Sie das "
+"Ticket kaufen möchten. Die Person muss eine direkte Verkaufsanfrage "
+"erstellen und Ihren Direct Code eingeben. Sie werden benachrichtigt, wenn "
+"Ihre Bestellung freigegeben wurde und bezahlt werden kann."
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:350
 msgid ""
@@ -380,9 +379,9 @@ msgid ""
 "you receive an offer to buy a ticket. You will be notified, when this is the "
 "case and your order can be payed."
 msgstr ""
-"Du hast ausgewählt, dass du ein Ticket automatisch kaufen möchtest. Bitte "
-"warte, bis du ein Angebot zum Kauf eines Tickets erhältst. Du wirst "
-"benachrichtigt, wenn deine Bestellung freigegeben wurde und bezahlt werden "
+"Sie haben ausgewählt, dass Sie ein Ticket automatisch kaufen möchten. Bitte "
+"warten Sie, bis Sie ein Angebot zum Kauf eines Tickets erhalten. Sie werden "
+"benachrichtigt, wenn Ihre Bestellung freigegeben wurde und bezahlt werden "
 "kann."
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:360
@@ -396,10 +395,10 @@ msgid ""
 "If you don't plan to buy a ticket anymore, please cancel your order so "
 "someone else can get chance at buying the ticket."
 msgstr ""
-"Du hast ein Angebot zum Kauf eines Tickets erhalten.\n"
+"Sie haben ein Angebot zum Kauf eines Tickets erhalten.\n"
 "\n"
-"Wenn du kein Ticket mehr kaufen möchtest, storniere bitte deine Bestellung, "
-"damit jemand anderes die Chance bekommt, das Ticket zu kaufen."
+"Wenn Sie kein Ticket mehr kaufen möchten, stornieren Sie bitte Ihre "
+"Bestellung, damit jemand anderes die Chance bekommt, das Ticket zu kaufen."
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:373
 msgid "Request failed"
@@ -407,7 +406,7 @@ msgstr "Anfrage fehlgeschlagen."
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:375
 msgid "Your request to buy a ticket failed."
-msgstr "Deine Anfrage, ein Ticket zu kaufen, ist fehlgeschlagen."
+msgstr "Ihre Anfrage, ein Ticket zu kaufen, ist fehlgeschlagen."
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:386
 #: pretix/plugins/pretix_ticketbourse/settings.py:556
@@ -445,17 +444,17 @@ msgid ""
 msgstr ""
 "Hallo,\n"
 "\n"
-"wir haben deine Bestellung für {event} freigegeben und freuen uns, dich bei "
+"wir haben Ihre Bestellung für {event} freigegeben und freuen uns, Sie bei "
 "unserer Veranstaltung begrüßen zu dürfen.\n"
 "\n"
-"Bitte bezahle deine Bestellung bis zum {expire_date}.\n"
+"Bitte bezahlen Sie Ihre Bestellung bis zum {expire_date}.\n"
 "\n"
-"Du kannst hier eine Zahlungsmethode wählen und die Zahlung durchführen:\n"
+"Sie können hier eine Zahlungsmethode wählen und die Zahlung durchführen:\n"
 "\n"
 "{url}\n"
 "\n"
 "Viele Grüße,\n"
-"Dein {event}-Team"
+"Ihr {event}-Team"
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:424
 msgid "Auto sell requested"
@@ -466,8 +465,8 @@ msgid ""
 "You requested to sell your ticket automatically. We will notify you as soon "
 "as we were able to sell it."
 msgstr ""
-"Du hast angefragt, dein Ticket automatisch zu verkaufen. Wir benachrichtigen "
-"dich, sobald wir es verkaufen konnten."
+"Sie haben angefragt, Ihr Ticket automatisch zu verkaufen. Wir "
+"benachrichtigen Sie, sobald wir es verkaufen konnten."
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:435
 msgid "Direct sell requested"
@@ -479,10 +478,10 @@ msgid ""
 "matches the direct code you have entered is pending payment. We will notify "
 "you, when it is payed and we have prepared your refund."
 msgstr ""
-"Du hast angefragt, dein Ticket an eine bestimmte Person zu verkaufen. Die "
+"Sie haben angefragt, Ihr Ticket an eine bestimmte Person zu verkaufen. Die "
 "Bestellung, die dem eingegebenen Direct Code entspricht, wartet auf "
-"Bezahlung. Wir benachrichtigen dich, wenn die Zahlung eingegangen ist und "
-"die Rückerstattung vorbereitet wurde."
+"Bezahlung. Wir benachrichtigen Sie, wenn die Zahlung eingegangen ist und die "
+"Rückerstattung vorbereitet wurde."
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:447
 msgid "Sell completed"
@@ -490,7 +489,7 @@ msgstr "Verkauf abgeschlossen"
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:449
 msgid "Your request to sell your ticket succeeded."
-msgstr "Deine Anfrage, dein Ticket zu verkaufen, war erfolgreich."
+msgstr "Ihre Anfrage, Ihr Ticket zu verkaufen, war erfolgreich."
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:457
 msgid "Sell failed"
@@ -498,15 +497,15 @@ msgstr "Verkauf fehlgeschlagen"
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:459
 msgid "Your request to sell your ticket failed."
-msgstr "Deine Anfrage, dein Ticket zu verkaufen, ist fehlgeschlagen."
+msgstr "Ihre Anfrage, Ihr Ticket zu verkaufen, ist fehlgeschlagen."
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:471
 msgid ""
 "Please select whether you want to sell your ticket directly to a specific "
 "person or you want to take part in the automatic ticket resale:"
 msgstr ""
-"Bitte wähle aus, ob du dein Ticket direkt an eine bestimmte Person verkaufen "
-"oder am automatischen Weiterverkauf teilnehmen möchtest:"
+"Bitte wählen Sie aus, ob Sie Ihr Ticket direkt an eine bestimmte Person "
+"verkaufen oder am automatischen Weiterverkauf teilnehmen möchten:"
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:491
 msgid ""
@@ -516,30 +515,30 @@ msgid ""
 "order first and select the option for direct resale. The person will get a "
 "direct code that you need to enter here to start the transaction:"
 msgstr ""
-"Wähle diese Option, wenn du dein Ticket an eine bestimmte Person verkaufen "
-"möchtest.\n"
+"Wählen Sie diese Option, wenn Sie Ihr Ticket an eine bestimmte Person "
+"verkaufen möchten.\n"
 "\n"
-"Die Person, an die du dein Ticket verkaufen möchtest, muss zuerst eine "
+"Die Person, an die Sie Ihr Ticket verkaufen möchten, muss zuerst eine "
 "Ticketbörse-Bestellung erstellen und die Option für den Direktverkauf "
-"wählen. Die Person erhält einen Direct Code, den du hier eingeben musst, um "
-"die Transaktion zu starten:"
+"wählen. Die Person erhält einen Direct Code, den Sie hier eingeben müssen, "
+"um die Transaktion zu starten:"
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:514
 msgid ""
 "Select this option, if you want to sell your ticket to anyone who wants it. "
 "You will be notified when your ticket is sold."
 msgstr ""
-"Wähle diese Option, wenn du dein Ticket an eine beliebige Person verkaufen "
-"möchtest. Du wirst benachrichtigt, wenn dein Ticket verkauft wurde."
+"Wählen Sie diese Option, wenn Sie Ihr Ticket an eine beliebige Person "
+"verkaufen möchten. Sie werden benachrichtigt, wenn Ihr Ticket verkauft wurde."
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:536
 msgid "You selected to sell your ticket directly to a specific person."
 msgstr ""
-"Du hast gewählt, dein Ticket direkt an eine bestimmte Person zu verkaufen."
+"Sie haben gewählt, Ihr Ticket direkt an eine bestimmte Person zu verkaufen."
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:546
 msgid "You selected to sell your ticket automatically."
-msgstr "Du hast gewählt, dein Ticket automatisch zu verkaufen."
+msgstr "Sie haben gewählt, Ihr Ticket automatisch zu verkaufen."
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:559
 #, python-brace-format
@@ -561,13 +560,13 @@ msgid ""
 msgstr ""
 "Hallo,\n"
 "\n"
-"deine Bestellung {code} für {event} wurde storniert.\n"
+"Ihre Bestellung {code} für {event} wurde storniert.\n"
 "\n"
-"Du kannst die Details deiner Bestellung hier einsehen:\n"
+"Sie können die Details Ihrer Bestellung hier einsehen:\n"
 "{url}\n"
 "\n"
 "Viele Grüße,\n"
-"Dein {event}-Team"
+"Ihr {event}-Team"
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:588
 #, python-brace-format
@@ -590,15 +589,16 @@ msgid ""
 msgstr ""
 "Hallo,\n"
 "\n"
-"deine Anfrage, deine Bestellung {code} für {event} zu verkaufen, ist "
+"Ihre Anfrage, Ihre Bestellung {code} für {event} zu verkaufen, ist "
 "fehlgeschlagen.\n"
-"Du kannst eine neue Anfrage erstellen, wenn du weiterhin interessiert bist.\n"
+"Sie können eine neue Anfrage erstellen, wenn Sie weiterhin interessiert "
+"bist.\n"
 "\n"
-"Du kannst die Details deiner Bestellung hier einsehen:\n"
+"Sie können die Details Ihrer Bestellung hier einsehen:\n"
 "{url}\n"
 "\n"
 "Viele Grüße,\n"
-"Dein {event}-Team"
+"Ihr {event}-Team"
 
 #: pretix/plugins/pretix_ticketbourse/settings.py:642
 #, python-brace-format
@@ -824,8 +824,8 @@ msgid ""
 "Do you really want to approve this order via ticket exchange? You cannot "
 "revert this action."
 msgstr ""
-"Möchtest du diese Bestellung wirklich über die Ticketbörse freigeben? Du "
-"kannst diese Aktion nicht rückgängig machen."
+"Möchten Sie diese Bestellung wirklich über die Ticketbörse freigeben? Sie "
+"können diese Aktion nicht rückgängig machen."
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/approve_order.html:14
 msgid ""
@@ -859,7 +859,7 @@ msgstr "Ticketbörse: Kaufanfrage löschen"
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/delete_request.html:10
 msgid "Do you really want to delete this ticket exchange buy request?"
-msgstr "Möchtest du diese Ticketbörse-Kaufanfrage wirklich löschen?"
+msgstr "Möchten Sie diese Ticketbörse-Kaufanfrage wirklich löschen?"
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/delete_request.html:25
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/control/sell/delete_request.html:25
@@ -873,7 +873,7 @@ msgstr "Ticketbörse: Kaufanfrage entsperren"
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/unblock_request.html:11
 msgid "Do you really want to unblock this buy request?"
-msgstr "Möchtest du diese Ticketbörse-Kaufanfrage wirklich entsperren?"
+msgstr "Möchten Sie diese Ticketbörse-Kaufanfrage wirklich entsperren?"
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/control/buy/unblock_request.html:13
 msgid "The order may be approved because of this action."
@@ -985,8 +985,8 @@ msgid ""
 "Do you really want to cancel this order via ticket exchange? You cannot "
 "revert this action."
 msgstr ""
-"Möchtest du diese Bestellung wirklich über die Ticketbörse stornieren? Du "
-"kannst diese Aktion nicht rückgängig machen."
+"Möchten Sie diese Bestellung wirklich über die Ticketbörse stornieren? Sie "
+"können diese Aktion nicht rückgängig machen."
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/control/sell/cancel_order.html:14
 msgid ""
@@ -1009,7 +1009,7 @@ msgstr "Ticketbörse: Verkaufsanfrage löschen"
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/control/sell/delete_request.html:10
 msgid "Do you really want to delete this ticket exchange sell request?"
-msgstr "Möchtest du diese Ticketbörse-Verkaufsanfrage wirklich löschen?"
+msgstr "Möchten Sie diese Ticketbörse-Verkaufsanfrage wirklich löschen?"
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:6
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/control/settings.html:9
@@ -1101,7 +1101,7 @@ msgstr "Ticketbörse-Anfrage zurückziehen"
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/cancel_request.html:13
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/cancel_request.html:13
 msgid "Are you sure, you want to cancel your Ticket Exchange request?"
-msgstr "Möchtest du deine Ticketbörse-Anfrage wirklich zurückziehen?"
+msgstr "Möchten Sie Ihre Ticketbörse-Anfrage wirklich zurückziehen?"
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/cancel_request.html:24
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/cancel_request.html:24
@@ -1142,23 +1142,24 @@ msgstr "Schritt %(current)s von %(total)s"
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:85
 msgid "Please select the product you want to add to your order."
 msgstr ""
-"Bitte wähle die Produkte aus, die du zu deiner Bestellung hinzufügen "
-"möchtest."
+"Bitte wählen Sie die Produkte aus, die Sie zu Ihrer Bestellung hinzufügen "
+"möchten."
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:88
 msgid ""
 "You can skip this step if you only want to add addon product to existing "
 "tickets."
 msgstr ""
-"Du kannst diesen Schritt überspringen, wenn du nur Zusatzprodukte zu "
-"bestehenden Tickets hinzufügen möchtest."
+"Sie können diesen Schritt überspringen, wenn Sie nur Zusatzprodukte zu "
+"bestehenden Tickets hinzufügen möchten."
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:95
 msgid ""
 "For some of the products, you can choose additional options before you "
 "continue."
 msgstr ""
-"Für manche Produkte kannst du Zusatzprodukte auswählen, bevor du fortfährst."
+"Für manche Produkte können Sie Zusatzprodukte auswählen, bevor Sie "
+"fortfahren."
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:110
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:188
@@ -1195,8 +1196,8 @@ msgstr "nicht beantwortet"
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:160
 msgid "Before we continue, we need you to answer some questions."
 msgstr ""
-"Bitte antworte auf die untenstehenden Fragen, bevor wir mit der Bestellung "
-"fortfahren."
+"Bitte antworten Sie auf die untenstehenden Fragen, bevor wir mit der "
+"Bestellung fortfahren."
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:162
 msgid ""
@@ -1236,7 +1237,8 @@ msgstr "Formular ausfüllen"
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:320
 msgid "Please review the details below and confirm your request."
 msgstr ""
-"Bitte überprüfe die untenstehenden Details und bestätige deine Anfrage."
+"Bitte überprüfen Sie die untenstehenden Details und bestätigen Sie Ihre "
+"Anfrage."
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:325
 msgid "Buy mode"
@@ -1287,16 +1289,16 @@ msgid ""
 "The order will be given the status WAITING FOR APPROVAL until you receive an "
 "offer for the selected products."
 msgstr ""
-"Die Bestellung erhält den Status FREIGABE AUSSTEHEND, bis du ein Angebot für "
-"die ausgewählten Produkte bekommst."
+"Die Bestellung erhält den Status FREIGABE AUSSTEHEND, bis Sie ein Angebot "
+"für die ausgewählten Produkte bekommen."
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:440
 msgid ""
 "Tickets that already have been paid for are still valid. You can also cancel "
 "your request at any time and restore your original order."
 msgstr ""
-"Bereits bezahlte Tickets sind trotzdem gültig. Du kannst deine Anfrage auch "
-"jederzeit abbrechen und deine ursprüngliche Bestellung wiederherstellen."
+"Bereits bezahlte Tickets sind trotzdem gültig. Sie können Ihre Anfrage auch "
+"jederzeit abbrechen und Ihre ursprüngliche Bestellung wiederherstellen."
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/buy/request.html:448
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:291
@@ -1314,7 +1316,7 @@ msgstr "Bestätigen"
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/order_info.html:19
 msgid "Your direct code is:"
-msgstr "Dein Direct Code ist:"
+msgstr "Ihr Direct Code ist:"
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/order_info.html:20
 msgid "Click to copy"
@@ -1332,7 +1334,7 @@ msgstr "Anfrage zurückziehen"
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/order_info.html:54
 msgid "Please wait until we processed your request."
-msgstr "Bitte warte, bis deine Anfrage verarbeitet wurde."
+msgstr "Bitte warten Sie, bis Ihre Anfrage verarbeitet wurde."
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/order_info.html:97
 msgid "Sell tickets"
@@ -1349,11 +1351,11 @@ msgstr "Zu verkaufende Tickets"
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:149
 msgid "Please select:"
-msgstr "Bitte wähle aus:"
+msgstr "Bitte wählen Sie aus:"
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:167
 msgid "Your bank details for the refund:"
-msgstr "Deine Bankverbindung für die Rückerstattung"
+msgstr "Ihre Bankverbindung für die Rückerstattung"
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:172
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:276
@@ -1365,8 +1367,8 @@ msgid ""
 "Please review the details below and confirm your request to sell your "
 "tickets."
 msgstr ""
-"Bitte überprüfe die untenstehenden Details und bestätige die Anfrage zum "
-"Verkauf deiner Tickets."
+"Bitte überprüfen Sie die untenstehenden Details und bestätigen Sie die "
+"Anfrage zum Verkauf Ihrer Tickets."
 
 #: pretix/plugins/pretix_ticketbourse/templates/pretix_ticketbourse/presale/sell/request.html:187
 msgid "Sell mode"
@@ -1388,8 +1390,8 @@ msgstr "Erstattungsbetrag"
 #, python-format
 msgid "You cannot have more than %s item in your order."
 msgid_plural "You cannot have more than %s items in your order."
-msgstr[0] "Du kannst nicht mehr als %s Produkt in deiner Bestellung haben."
-msgstr[1] "Du kannst nicht mehr als %s Produkte in deiner Bestellung haben."
+msgstr[0] "Sie können nicht mehr als %s Produkt in Ihrer Bestellung haben."
+msgstr[1] "Sie können nicht mehr als %s Produkte in Ihrer Bestellung haben."
 
 #: pretix/plugins/pretix_ticketbourse/utils.py:313
 #, python-format
@@ -1397,7 +1399,7 @@ msgid ""
 "You need to have at least %(min)s items (or none) of the product %(product)s "
 "in your order."
 msgstr ""
-"Deine Bestellung muss das Produkt %(product)s muss mindestens %(min)s mal "
+"Ihre Bestellung muss das Produkt %(product)s muss mindestens %(min)s mal "
 "(oder gar nicht) enthalten."
 
 #: pretix/plugins/pretix_ticketbourse/utils.py:317
@@ -1409,10 +1411,10 @@ msgid_plural ""
 "You cannot have more than %(max)s items of the product %(product)s in your "
 "order."
 msgstr[0] ""
-"Deine Bestellung kann das Produkt %(product)s nicht mehr als %(max)s mal "
+"Ihre Bestellung kann das Produkt %(product)s nicht mehr als %(max)s mal "
 "enthalten."
 msgstr[1] ""
-"Deine Bestellung kann das Produkt %(product)s nicht mehr als %(max)s mal "
+"Ihre Bestellung kann das Produkt %(product)s nicht mehr als %(max)s mal "
 "enthalten."
 
 #: pretix/plugins/pretix_ticketbourse/utils.py:327
@@ -1424,10 +1426,10 @@ msgid_plural ""
 "You need to have at least %(min)s add-ons from the category %(cat)s for the "
 "product %(base)s."
 msgstr[0] ""
-"Deine Bestellung muss für das Produkt %(base)s mindestens %(min)s "
+"Ihre Bestellung muss für das Produkt %(base)s mindestens %(min)s "
 "Zusatzprodukt aus der Kategorie %(cat)s enthalten."
 msgstr[1] ""
-"Deine Bestellung muss für das Produkt %(base)s mindestens %(min)s "
+"Ihre Bestellung muss für das Produkt %(base)s mindestens %(min)s "
 "Zusatzprodukte aus der Kategorie %(cat)s enthalten."
 
 #: pretix/plugins/pretix_ticketbourse/utils.py:333
@@ -1439,11 +1441,11 @@ msgid_plural ""
 "You can have at most %(max)s add-ons from the category %(cat)s for the "
 "product %(base)s."
 msgstr[0] ""
-"Deine Bestellung kann für das Produkt %(base)s maximal %(max)s Zusatzprodukt "
+"Ihre Bestellung kann für das Produkt %(base)s maximal %(max)s Zusatzprodukt "
 "aus der Kategorie %(cat)s enthalten."
 msgstr[1] ""
-"Deine Bestellung kann für das Produkt %(base)s maximal %(max)s "
-"Zusatzprodukte aus der Kategorie %(cat)s enthalten."
+"Ihre Bestellung kann für das Produkt %(base)s maximal %(max)s Zusatzprodukte "
+"aus der Kategorie %(cat)s enthalten."
 
 #: pretix/plugins/pretix_ticketbourse/utils.py:346
 #, python-format
@@ -1451,13 +1453,13 @@ msgid ""
 "You can have every add-ons from the category %(cat)s for the product "
 "%(base)s at most once."
 msgstr ""
-"Deine Bestellung kann für das Produkt %(base)s die Zusatzprodukt aus der "
+"Ihre Bestellung kann für das Produkt %(base)s die Zusatzprodukt aus der "
 "Kategorie %(cat)s jeweils nur einmal enthalten."
 
 #: pretix/plugins/pretix_ticketbourse/views.py:119
 #: pretix/plugins/pretix_ticketbourse/views.py:163
 msgid "You need to select at least one product."
-msgstr "Du musst mindestens ein Produkt auswählen."
+msgstr "Sie müssen mindestens ein Produkt auswählen."
 
 #: pretix/plugins/pretix_ticketbourse/views.py:382
 #: pretix/plugins/pretix_ticketbourse/views.py:437
@@ -1465,7 +1467,7 @@ msgstr "Du musst mindestens ein Produkt auswählen."
 #: pretix/plugins/pretix_ticketbourse/views.py:693
 msgid "We could not process your request. Please try again later."
 msgstr ""
-"Wir konnten deine Anfrage leider nicht verarbeiten. Bitte versuche es später "
+"Wir konnten Ihre Anfrage leider nicht verarbeiten. Bitte versuche es später "
 "erneut."
 
 #: pretix/plugins/pretix_ticketbourse/views.py:492
@@ -1474,7 +1476,7 @@ msgstr "Dieses Feld ist erforderlich."
 
 #: pretix/plugins/pretix_ticketbourse/views.py:495
 msgid "Please wait 1 hour before you try again."
-msgstr "Bitte warte eine Stunde bevor du es erneut versuchst."
+msgstr "Bitte warten Sie eine Stunde bevor Sie es erneut versuchen."
 
 #: pretix/plugins/pretix_ticketbourse/views.py:501
 #: pretix/plugins/pretix_ticketbourse/views.py:506
@@ -1483,11 +1485,11 @@ msgstr "Der Direct Code ist ungültig."
 
 #: pretix/plugins/pretix_ticketbourse/views.py:512
 msgid "You do not have all tickets required for the entered Direct Code."
-msgstr "Du hast nicht alle für den eingegebenen Direct-Code nötigen Tickets."
+msgstr "Sie haben nicht alle für den eingegebenen Direct-Code nötigen Tickets."
 
 #: pretix/plugins/pretix_ticketbourse/views.py:548
 msgid "You need to select at least one ticket."
-msgstr "Du musst mindestens ein Ticket auswählen."
+msgstr "Sie müssen mindestens ein Ticket auswählen."
 
 #: pretix/plugins/pretix_ticketbourse/views.py:550
 #, python-format
@@ -1495,11 +1497,12 @@ msgid ""
 "You cannot sell %(product)s without also selling all associated addon "
 "products."
 msgstr ""
-"Du kannst %(product)s nicht ohne alle zugehörigen Zusatzprodukte verkaufen."
+"Sie können %(product)s nicht ohne alle zugehörigen Zusatzprodukte verkaufen."
 
 #: pretix/plugins/pretix_ticketbourse/views.py:553
 msgid "You need to select the right amount of tickets for the Direct Code."
-msgstr "Du musst die richtige Anzahl an Tickets für den Direct-Code auswählen."
+msgstr ""
+"Sie müssen die richtige Anzahl an Tickets für den Direct-Code auswählen."
 
 #~ msgid "Ticket Bourse"
 #~ msgstr "Ticketbörse"

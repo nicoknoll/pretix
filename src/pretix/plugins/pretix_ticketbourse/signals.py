@@ -33,7 +33,7 @@ class TicketBourseFlowStep(CartMixin, TemplateFlowStep):
     identifier = 'ticketbourse'
     template_name = 'pretix_ticketbourse/presale/buy/checkout.html'
     icon = 'handshake-o'
-    label = _('Ticket:Bourse')
+    label = _('Ticket Exchange')
 
     def post(self, request):
         self.request = request
@@ -221,7 +221,7 @@ def logentry_display_receiver(sender, logentry, *args, **kwargs):
     if logentry.action_type == 'pretix_ticketbourse.buy_request.approved':
         return _('Order approved by buy request.')
     if logentry.action_type == 'pretix_ticketbourse.buy_request.approved.order.email':
-        return _('An email has been sent to notify the user that the order was approved by the ticket bourse.')
+        return _('An email has been sent to notify the user that the order was approved by the ticket exchange.')
     if logentry.action_type == 'pretix_ticketbourse.buy_request.paid':
         return _('Order paid, buy request waiting for completion of sell request.')
     if logentry.action_type == 'pretix_ticketbourse.buy_request.completed':
@@ -246,7 +246,7 @@ def logentry_display_receiver(sender, logentry, *args, **kwargs):
     if logentry.action_type == 'pretix_ticketbourse.sell_request.completed':
         return _('Sell request completed.')
     if logentry.action_type == 'pretix_ticketbourse.sell_request.completed.order.email':
-        return _('An email has been sent to notify the user that the ticket bourse request was completed and the order was canceled.')
+        return _('An email has been sent to notify the user that the ticket exchange request was completed and the order was canceled.')
     if logentry.action_type == 'pretix_ticketbourse.sell_request.failed':
         if logentry.parsed_data.get('state') == SellRequest.States.FAILED_CANCELED:
             return _('Sell request failed: Order was canceled.')
@@ -256,7 +256,7 @@ def logentry_display_receiver(sender, logentry, *args, **kwargs):
             return _('Direct sell request failed: Target order expired or was canceled.')
         return _('Direct sell request failed')
     if logentry.action_type == 'pretix_ticketbourse.sell_request.failed_buyer.order.email':
-        return _('An email has been sent to notify the user that the ticket bourse request failed because the buyer did not pay in time or canceled his order.')
+        return _('An email has been sent to notify the user that the ticket exchange request failed because the buyer did not pay in time or canceled his order.')
 
     if logentry.action_type == 'pretix_ticketbourse.result':
         return _('Ticketbourse result: %(to_be_approved)d to be approved, %(to_be_canceled)d to be canceled.')%logentry.parsed_data
@@ -267,7 +267,7 @@ def nav_event_settings_receiver(sender, request, **kwargs):
     url = resolve(request.path_info)
     return [
         {
-            'label': _('Ticket Bourse'),
+            'label': _('Ticket Exchange'),
             'url': reverse(
                 'plugins:pretix_ticketbourse:event.settings.ticketbourse',
                 kwargs={
@@ -283,7 +283,7 @@ def nav_event_settings_receiver(sender, request, **kwargs):
 class OrderSearchForm(forms.Form):
     buy_request_state = forms.ChoiceField(
         required=False,
-        label=_('Ticket bourse buy state'),
+        label=_('Ticket Exchange buy state'),
         choices=[
             ('', '--------'),
             ('none', _('No request')),
@@ -292,14 +292,14 @@ class OrderSearchForm(forms.Form):
     )
     buy_request_mode = forms.ChoiceField(
         required=False,
-        label=_('Ticket bourse buy mode'),
+        label=_('Ticket Exchange buy mode'),
         choices=[
             ('', '--------'),
         ] + BuyRequest.Modes.choices,
     )
     sell_request_state = forms.ChoiceField(
         required=False,
-        label=_('Ticket bourse sell state'),
+        label=_('Ticket Exchange sell state'),
         choices=[
             ('', '--------'),
             ('none', _('No request')),
@@ -309,7 +309,7 @@ class OrderSearchForm(forms.Form):
     )
     sell_request_mode = forms.ChoiceField(
         required=False,
-        label=_('Ticket bourse sell mode'),
+        label=_('Ticket Exchange sell mode'),
         choices=[
             ('', '--------'),
         ] + SellRequest.Modes.choices,
@@ -410,27 +410,27 @@ class OrderSearchForm(forms.Form):
         results = []
         buy_request_state = self.cleaned_data.get('buy_request_state')
         if buy_request_state == 'none':
-            results.append(_('Has no ticket bourse buy request'))
+            results.append(_('Has no ticket exchange buy request'))
         elif buy_request_state == 'any':
-            results.append(_('Has ticket bourse buy request (any state)'))
+            results.append(_('Has ticket exchange buy request (any state)'))
         elif buy_request_state in BuyRequest.States:
-            results.append(_('Has ticket bourse buy request with state "%(state)s"')%{'state': BuyRequest.States[buy_request_state].label})
+            results.append(_('Has ticket exchange buy request with state "%(state)s"')%{'state': BuyRequest.States[buy_request_state].label})
         buy_request_mode = self.cleaned_data.get('buy_request_mode')
         if buy_request_mode in BuyRequest.Modes:
-            results.append(_('Has ticket bourse buy request with mode "%(mode)s"')%{'mode': BuyRequest.Modes[buy_request_mode].label})
+            results.append(_('Has ticket exchange buy request with mode "%(mode)s"')%{'mode': BuyRequest.Modes[buy_request_mode].label})
 
         sell_request_state = self.cleaned_data.get('sell_request_state')
         if sell_request_state == 'none':
-            results.append(_('Has no ticket bourse sell request'))
+            results.append(_('Has no ticket exchange sell request'))
         elif sell_request_state == 'any':
-            results.append(_('Has ticket bourse sell request (any state)'))
+            results.append(_('Has ticket exchange sell request (any state)'))
         elif sell_request_state == 'any_failed':
-            results.append(_('Has ticket bourse sell request (any failed state)'))
+            results.append(_('Has ticket exchange sell request (any failed state)'))
         elif sell_request_state in SellRequest.States:
-            results.append(_('Has ticket bourse sell request with state "%(state)s"')%{'state': SellRequest.States[sell_request_state].label})
+            results.append(_('Has ticket exchange sell request with state "%(state)s"')%{'state': SellRequest.States[sell_request_state].label})
         sell_request_mode = self.cleaned_data.get('sell_request_mode')
         if sell_request_mode in SellRequest.Modes:
-            results.append(_('Has ticket bourse sell request with mode "%(mode)s"')%{'mode': SellRequest.Modes[sell_request_mode].label})
+            results.append(_('Has ticket exchange sell request with mode "%(mode)s"')%{'mode': SellRequest.Modes[sell_request_mode].label})
 
         return results
 
@@ -466,7 +466,7 @@ def control_nav_item(sender, request, **kwargs):
         return []
     return [
         {
-            'label': _('Ticket Bourse'),
+            'label': _('Ticket Exchange'),
             'icon': 'handshake-o',
             'url': reverse(
                 'plugins:pretix_ticketbourse:event.ticketbourse.stats',

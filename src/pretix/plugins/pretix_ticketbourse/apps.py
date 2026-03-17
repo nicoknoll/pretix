@@ -10,10 +10,10 @@ except ImportError:
 class PluginApp(PluginConfig):
     default = True
     name = "pretix.plugins.pretix_ticketbourse"
-    verbose_name = "Ticket Bourse"
+    verbose_name = "Ticket Exchange"
 
     class PretixPluginMeta:
-        name = gettext_lazy("Ticket Bourse")
+        name = gettext_lazy("Ticket Exchange")
         author = "Julian Rother"
         description = gettext_lazy("Allow customers to resell their tickets")
         visible = True
@@ -23,3 +23,10 @@ class PluginApp(PluginConfig):
 
     def ready(self):
         from . import signals  # NOQA
+
+    def uninstalled(self, event):
+        from .settings import COMMON_SETTINGS, ITEM_GROUP_SETTINGS, BUY_SETTINGS, SELL_SETTINGS
+        for settings_dict in (COMMON_SETTINGS, ITEM_GROUP_SETTINGS, BUY_SETTINGS, SELL_SETTINGS):
+            for key in settings_dict:
+                event.settings.delete(key)
+        event.settings.delete('ticketbourse_approval_batching_last_run')

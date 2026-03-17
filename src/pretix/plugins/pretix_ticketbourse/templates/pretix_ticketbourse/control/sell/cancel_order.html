@@ -1,18 +1,18 @@
 {% extends "pretixcontrol/event/base.html" %}
 {% load i18n %}
 {% block title %}
-    {% trans "Ticket bourse: Cancel order" %}
+    {% trans "Ticket Exchange: Cancel order" %}
 {% endblock %}
 {% block content %}
     <h1>
-        {% trans "Ticket bourse: Cancel order" %}
+        {% trans "Ticket Exchange: Cancel order" %}
     </h1>
     <p>{% blocktrans trimmed %}
-        Do you really want to cancel this order via ticket bourse? You cannot revert this action.
+        Do you really want to cancel this order via ticket exchange? You cannot revert this action.
     {% endblocktrans %}</p>
 
     <p>{% blocktrans trimmed %}
-        This will create a refund and affect the ticket bourse sell/buy balance.
+        This will create a refund and affect the ticket exchange sell/buy balance.
         Depending on the current state and settings a buy request will be approved because of this action.
     {% endblocktrans %}</p>
 

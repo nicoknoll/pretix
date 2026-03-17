@@ -1,18 +1,18 @@
 {% extends "pretixcontrol/event/base.html" %}
 {% load i18n %}
 {% block title %}
-    {% trans "Ticket bourse: Approve order" %}
+    {% trans "Ticket Exchange: Approve order" %}
 {% endblock %}
 {% block content %}
     <h1>
-        {% trans "Ticket bourse: Approve order" %}
+        {% trans "Ticket Exchange: Approve order" %}
     </h1>
     <p>{% blocktrans trimmed %}
-        Do you really want to approve this order via ticket bourse? You cannot revert this action.
+        Do you really want to approve this order via ticket exchange? You cannot revert this action.
     {% endblocktrans %}</p>
 
     <p>{% blocktrans trimmed %}
-        This will affect the ticket bourse sell/buy balance.
+        This will affect the ticket exchange sell/buy balance.
         Depending on the current state and settings a sell request will be completed (and an order canceled) because of this action.
     {% endblocktrans %}</p>
 
