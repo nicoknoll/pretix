@@ -105,7 +105,7 @@ dependencies = [
   "vobject==0.9.*",
   "webauthn==2.7.*",
   "zeep==4.3.*",
-  "pretix-enablebanking>=1.0.0",
+  "pretix-enablebanking>=1.0.4",
   "pretix-event-css-js",
 ]
 
@@ -163,6 +163,3 @@ version = {attr = "pretix.__version__"}
 where = ["src"]
 include = ["pretix*"]
 namespaces = false
-
-[tool.uv.sources]
-pretix-event-css-js = { path = "../pretix-event-css-js", editable = true }
